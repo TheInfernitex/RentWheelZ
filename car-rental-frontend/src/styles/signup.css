@@ -1,0 +1,53 @@
+/* src/styles/signup.css */
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #161821;  /* Match home page background */
+}
+
+.signup-container {
+  width: 350px;  
+  margin: 100px auto;  
+  padding: 30px;  
+  border-radius: 15px;  
+  background-color: #0B0C10;  /* Match home page card background */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);  /* Darker shadow for more depth */
+  text-align: center;
+  color:white;
+}
+
+.signup-container h1 {
+  margin-bottom: 30px;
+  font-size: 26px;  
+  color: #83fff7;  /* Match home page title color */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;  
+}
+
+form .error-message {
+  color: red;
+  margin-top: 10px;
+}
+form input{
+  margin-left: 5%;
+}
+
+button {
+  padding: 12px;  
+  margin-top: 15px;
+  border: none;
+  background-color: #66fcf2d4;  /* Match home page button color */
+  color: #0B0C10;  /* Dark text for readability */
+  font-size: 18px;  
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;  
+}
+
+button:hover {
+  background-color: #66FCF1;  /* Match hover color */
+}

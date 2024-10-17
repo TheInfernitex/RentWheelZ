@@ -1,9 +1,8 @@
 // src/main/java/com/example/carrental/service/UserService.java
+package com.infernitex.car_rental_backend.service;
 
-package com.example.carrental.service;
-
-import com.example.carrental.model.User;
-import com.example.carrental.repository.UserRepository;
+import com.infernitex.car_rental_backend.model.User;
+import com.infernitex.car_rental_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

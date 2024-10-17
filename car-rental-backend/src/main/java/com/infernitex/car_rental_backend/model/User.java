@@ -1,5 +1,5 @@
 // src/main/java/com/example/carrental/model/User.java
-package com.example.carrental.model;
+package com.infernitex.car_rental_backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,13 +22,16 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    // Getters and setters
-    public Long getId() {
-        return id;
+    public User() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getEmail() {

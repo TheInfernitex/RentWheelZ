@@ -1,0 +1,123 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #161821;
+}
+
+.home-container {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background-color: black;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:10vh;
+}
+
+.navbar-title {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 900;
+    font-family: cursive;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color:#66fcf2d4;
+    cursor: pointer;
+    font-weight: bolder;
+    background-color: black;
+}
+
+.nav-button:hover {
+    color: #66FCF1;
+}
+
+.hero-section {
+    padding: 80px 20px;
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../assets/heroSecImage.jpg');
+    height: 45vh;
+
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #83fff7;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #C5C6C7;
+}
+
+.features {
+    padding: 40px 20px;
+    color: white;
+    
+    background-color: rgb(0, 18, 22);
+    height: 35vh;
+}
+
+.features h2 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: #83fff7d7;
+}
+
+.feature-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.feature-item {
+    background-color: #C5C6C7;
+    color: #0B0C10;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 20%;
+    height: 16vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature-item h3 {
+    margin-bottom: 10px;
+}
+
+.footer {
+    color: #C5C6C7;
+    background-color: #0B0C10;
+    display: flex;
+    height:7vh;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
