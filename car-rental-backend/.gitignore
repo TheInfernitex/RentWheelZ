@@ -34,6 +34,5 @@ build/
 .vscode/
 
 # Ignore H2 database files
-/data/auctionbazar.mv.db
-/data/auctionbazar.trace.db
+/data
 
