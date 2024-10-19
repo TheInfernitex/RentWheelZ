@@ -1,23 +1,6 @@
 RentWheelZ is a Car Rental Website made with Next.js and Springboot.
 
-To use the app, clone it to your local machine and run the following commands:
-
-```bash
-    cd car-rental-frontend
-    npm install
-    npm run dev
-```
-
-The frontend app will be running on http://localhost:3000
-
-then, use the following commands to run the backend:
-
-```bash
-    cd car-rental-backend
-    mvn clean install
-```
-
-make a file called *application.properties* inside *car-rental-backend/src/main/resources* and set the following properties:
+To use the app, clone it to your local machine and make a file called *application.properties* inside *car-rental-backend/src/main/resources* and set the following properties:
 
 ```properties
     spring.application.name=car-rental-backend
@@ -38,9 +21,23 @@ make a file called *application.properties* inside *car-rental-backend/src/main/
     spring.security.user.password=12345678
 ```
 
-Then run the following command:
+Then, open a terminal and run the following commands:
 
 ```bash
+    cd car-rental-frontend
+    npm install
+    npm run dev
+```
+
+The frontend app will be running on http://localhost:3000
+
+Then, open another terminal and run the following commands to start the backend server:
+
+```bash
+    cd car-rental-backend
+    mvn clean install
     mvn spring-boot:run
 ```
 
+
+***Enjoy the app! 🚗***
