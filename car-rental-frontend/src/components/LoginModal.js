@@ -21,7 +21,6 @@ const LoginModal = ({ onClose }) => {
         email,
         password,
       });
-      // Handle the response (e.g., redirect user, store token, etc.)
       console.log('Login successful:', response.data);
       setResult('Login successful!');
     } catch (err) {
@@ -29,7 +28,7 @@ const LoginModal = ({ onClose }) => {
     } finally {
       setTimeout(() => {
         setResult('');
-        onClose(); // Close the modal after a successful login or on error
+        onClose();
       }, 5000);
     }
   };

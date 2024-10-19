@@ -3,14 +3,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import InputField from './InputField';
 import Button from './Button';
-import ResetPassword from './ResetPassword'; // Import the Reset Password modal
+import ResetPassword from './ResetPassword';
 import '../styles/modal.css';
 
 const ForgotPassModal = ({ onClose }) => {
     const [email, setEmail] = useState('');
     const [result, setResult] = useState('');
-    const [showResetModal, setShowResetModal] = useState(false); // State to manage Reset Password modal
-
+    const [showResetModal, setShowResetModal] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
         setResult('');
@@ -19,10 +18,8 @@ const ForgotPassModal = ({ onClose }) => {
             const response = await axios.post('http://localhost:8081/api/users/forgotpass', {
                 email,
             });
-            console.log('Token sent', response.data);
             setResult('Token sent to your email!');
-            // Show the Reset Password modal after successful token submission
-            setInterval(() => {
+            setTimeout(() => {
                 setShowResetModal(true);
             }, 2000);
         } catch (err) {

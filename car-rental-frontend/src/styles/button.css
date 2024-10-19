@@ -2,33 +2,21 @@
 
 .custom-button {
     background-color: skyblue;
-    /* Sky blue background */
     color: white;
-    /* White text */
     font-weight: bold;
-    /* Bolder font */
     padding: 10px 20px;
-    /* Padding for better spacing */
     border: none;
-    /* No border */
     border-radius: 5px;
-    /* Slightly rounded corners */
     font-size: 16px;
-    /* Font size */
     cursor: pointer;
-    /* Pointer cursor on hover */
     transition: all 0.3s ease-in-out;
-    /* Smooth transition for hover effect */
 }
 
 .custom-button:hover {
     background-color: #1e90ff;
-    /* Darker skyblue on hover */
     transform: scale(1.1);
-    /* Button grows on hover */
 }
 
 .custom-button:active {
     transform: scale(1);
-    /* Reset the scale on click */
 }

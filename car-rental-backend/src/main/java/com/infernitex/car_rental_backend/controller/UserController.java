@@ -23,10 +23,6 @@ public class UserController {
     @Autowired
     private EmailService emailService;
 
-    @GetMapping("/hello") // for experimenting
-    public String signup() {
-        return "Hello World!";
-    }
 
     @PostMapping("/signup")
     public ResponseEntity<User> signup(@RequestBody User user) {
@@ -47,8 +43,6 @@ public class UserController {
     public ResponseEntity<String> forgotPassword(@RequestBody User user) {
         String resetToken = userService.generateResetToken(user.getEmail());
         if (resetToken != null) {
-            // Send the reset token through email
-
             emailService.sendPasswordResetEmail(user.getEmail(), resetToken);
             return ResponseEntity.ok("Reset token : " + resetToken);
         }

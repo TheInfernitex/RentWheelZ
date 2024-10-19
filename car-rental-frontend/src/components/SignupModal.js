@@ -9,14 +9,14 @@ const SignupModal = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [result, setResult] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');  // Clear any previous errors
+    setResult('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setResult('Passwords do not match');
       return;
     }
 
@@ -25,12 +25,13 @@ const SignupModal = ({ onClose }) => {
         email,
         password,
       });
-      // Handle the response (e.g., redirect user, store token, etc.)
-      console.log('Signup successful:', response.data);
-      onClose(); // Close the modal after a successful signup
+      setResult('Signup successful!');
+      setTimeout(() => {
+        onClose();
+      }, 2000);
     } catch (err) {
       console.error('Error during signup:', err.message);
-      setError('Signup failed. Please try again.');
+      setResult('Signup failed. Please try again.');
     }
   };
 
@@ -61,7 +62,7 @@ const SignupModal = ({ onClose }) => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          {error && <p className="error-message">{error}</p>}
+          {result && <p className="result-message">{result}</p>}
           <Button text="Signup" />
         </form>
       </div>
