@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.infernitex.car_rental_backend.model.User;
 import com.infernitex.car_rental_backend.service.UserService;
+import com.infernitex.car_rental_backend.service.EmailService;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,6 +19,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/hello") // for experimenting
     public String signup() {
@@ -43,7 +47,9 @@ public class UserController {
     public ResponseEntity<String> forgotPassword(@RequestBody User user) {
         String resetToken = userService.generateResetToken(user.getEmail());
         if (resetToken != null) {
-            // TODO: Send an email with the reset token (implement this)
+            // Send the reset token through email
+
+            emailService.sendPasswordResetEmail(user.getEmail(), resetToken);
             return ResponseEntity.ok("Reset token : " + resetToken);
         }
         return ResponseEntity.status(404).body("User not found");
