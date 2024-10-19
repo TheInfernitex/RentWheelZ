@@ -38,4 +38,44 @@ public class UserController {
         }
         return ResponseEntity.status(401).build();
     }
+
+    @PostMapping("/forgotpass")
+    public ResponseEntity<String> forgotPassword(@RequestBody User user) {
+        String resetToken = userService.generateResetToken(user.getEmail());
+        if (resetToken != null) {
+            // TODO: Send an email with the reset token (implement this)
+            return ResponseEntity.ok("Reset token : " + resetToken);
+        }
+        return ResponseEntity.status(404).body("User not found");
+    }
+
+    @PostMapping("/resetpass")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
+        boolean success = userService.resetPassword(request.getResetToken(), request.getNewPassword());
+        if (success) {
+            return ResponseEntity.ok("Password has been reset successfully.");
+        }
+        return ResponseEntity.status(400).body("Invalid or expired reset token.");
+    }
+
+    public static class ResetPasswordRequest {
+        private String resetToken;
+        private String newPassword;
+
+        public String getResetToken() {
+            return resetToken;
+        }
+
+        public void setResetToken(String resetToken) {
+            this.resetToken = resetToken;
+        }
+
+        public String getNewPassword() {
+            return newPassword;
+        }
+
+        public void setNewPassword(String newPassword) {
+            this.newPassword = newPassword;
+        }
+    }
 }

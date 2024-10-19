@@ -13,7 +13,8 @@ html, body {
 }
 
 .navbar {
-    background-color: black;
+
+    background-color: rgb(0 1 3);
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
@@ -22,10 +23,11 @@ html, body {
 }
 
 .navbar-title {
-    font-size: 1.5rem;
+    font-size:2rem;
     color: white;
     font-weight: 900;
     font-family: cursive;
+    margin-left: 1vw;
 }
 
 .nav-buttons {
@@ -37,46 +39,84 @@ html, body {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
-    color:#66fcf2d4;
+    font-size: 1.3rem;
+    color: white;
     cursor: pointer;
     font-weight: bolder;
-    background-color: black;
+    background-color: rgba(0, 255, 196, 0);
 }
 
 .nav-button:hover {
     color: #66FCF1;
 }
 
+/*.hero-section {*/
+/*    padding: 80px 20px;*/
+/*    flex: 1;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    background-image: url('../assets/heroSecImage4.jpg');*/
+/*    background-size: contain; !* Adjust this if necessary *!*/
+/*    background-repeat: repeat-x; !* Allows the image to repeat horizontally *!*/
+/*    background-position: top; !* Adjust positioning if needed *!*/
+/*    height: 60vh;*/
+/*}*/
+
 .hero-section {
     padding: 80px 20px;
-    flex: 1; 
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('../assets/heroSecImage.jpg');
-    height: 45vh;
+    background-image: url('../assets/heroSecImage4.jpg');
+    background-size: contain; /* Adjust this if necessary */
+    background-position: center; /* Centers the image */
 
+    background-repeat: repeat-x; /* Allows the image to repeat horizontally */
+    background-position: 0% top; /* Initial position */
+    height: 60vh;
+    width: 100%; /* Ensure full width */
+
+    animation: moveBackground 10s linear infinite; /* Animation settings */
 }
 
+@keyframes moveBackground {
+    0% {
+        background-position: 0% top; /* Start position */
+    }
+
+    50% {
+        background-position: 100% top; /* End position */
+    }
+    100% {
+        background-position: 0% top; /* End position */
+    }
+}
+
+
+
 .hero-section h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    font-size: 5rem;
     color: #83fff7;
+    height: 2vh;
+    margin-bottom: 10vh !important;
 }
 
 .hero-section p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+    font-size: 2rem;
     color: #C5C6C7;
+    margin-bottom: 15vh !important;
+    height: 40vh;
 }
 
 .features {
     padding: 40px 20px;
     color: white;
     
-    background-color: rgb(0, 18, 22);
+    background-color: rgb(0 1 3);
     height: 35vh;
 }
 
@@ -94,8 +134,9 @@ html, body {
 }
 
 .feature-item {
-    background-color: #C5C6C7;
-    color: #0B0C10;
+
+    background-color: rgb(0, 16, 19);
+    color: white;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -111,9 +152,17 @@ html, body {
     margin-bottom: 10px;
 }
 
+hr {
+    height: 5px; /* Adjust the height as needed */
+    border: none; /* Remove the default border */
+    background: linear-gradient(270deg,  #00BFFF, yellow, #00BFFF); /* Change the gradient direction and colors */
+    background-size: 300% 100%;
+}
+
+
 .footer {
     color: #C5C6C7;
-    background-color: #0B0C10;
+    background-color: rgb(0, 16, 19);
     display: flex;
     height:7vh;
     justify-content: center;
