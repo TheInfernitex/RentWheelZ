@@ -7,30 +7,22 @@
   right: 0;
   bottom: 0;
   background-color: rgba(2, 0, 0, 0.7);
-  /* Dark background with transparency */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  /* Make sure the modal is on top */
 }
 
 .modal-content {
   background-color: rgb(0, 24, 48);
-  /* Dark background for modal content */
   color: #C5C6C7;
-  /* White text */
   border-radius: 10%;
   padding: 2vh 2vw;
-  /* Padding with vh and vw for responsiveness */
   width: 50vw;
-  /* Set width using vw */
   height: 50vh;
-  /* Set height using vh */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow-y: auto;
-  /* Allow scrolling if content exceeds height */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -40,13 +32,9 @@
 .close-button {
   position: absolute;
   top: 2vh;
-  /* Adjusted for better spacing */
   right: 2vw;
-  /* Adjusted for better spacing */
   background-color: rgba(102, 252, 241, 0.47);
-  /* Sky blue background for the close button */
   color: #C5C6C7;
-  /* White text for the close button */
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -56,19 +44,16 @@
 
 .close-button:hover {
   background-color: #66fcf2b1;
-  /* Darker blue on hover */
 }
 
 h2 {
   text-align: center;
-  /* Center the heading */
   margin-bottom: 20px;
 }
 
 .result-message,
 .error-message {
   color: #66FCF1;
-  /* Sky blue color for messages */
   text-align: center;
 }
 

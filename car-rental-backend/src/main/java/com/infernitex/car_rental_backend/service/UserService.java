@@ -27,19 +27,18 @@ public class UserService {
     public User loginUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            return user; // Consider using hashed passwords for production
+            return user;
         }
         return null; // Invalid login
     }
 
-    // Method to generate a reset token and set its expiry
     public String generateResetToken(String email) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             return null; // User not found
         }
 
-        String resetToken = UUID.randomUUID().toString(); // Generate a unique token
+        String resetToken = UUID.randomUUID().toString();
         user.setResetToken(resetToken);
         user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(3)); // Set expiry time (3 minutes from now)
         userRepository.save(user); // Save the user with the reset token
@@ -47,16 +46,15 @@ public class UserService {
         return resetToken; // Return the reset token (for testing purposes)
     }
 
-    // Method to reset the user's password using the reset token
     public boolean resetPassword(String resetToken, String newPassword) {
         User user = userRepository.findByResetToken(resetToken);
         if (user != null && user.getResetTokenExpiry().isAfter(LocalDateTime.now())) {
-            user.setPassword(passwordEncoder.encode(newPassword)); // Update the password
-            user.setResetToken(null); // Clear the reset token
-            user.setResetTokenExpiry(null); // Clear the expiry
-            userRepository.save(user); // Save the updated user
-            return true; // Password reset successful
+            user.setPassword(passwordEncoder.encode(newPassword));
+            user.setResetToken(null);
+            user.setResetTokenExpiry(null);
+            userRepository.save(user);
+            return true;
         }
-        return false; // Invalid token or token expired
+        return false;
     }
 }

@@ -50,19 +50,6 @@ html, body {
     color: #66FCF1;
 }
 
-/*.hero-section {*/
-/*    padding: 80px 20px;*/
-/*    flex: 1;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    background-image: url('../assets/heroSecImage4.jpg');*/
-/*    background-size: contain; !* Adjust this if necessary *!*/
-/*    background-repeat: repeat-x; !* Allows the image to repeat horizontally *!*/
-/*    background-position: top; !* Adjust positioning if needed *!*/
-/*    height: 60vh;*/
-/*}*/
 
 .hero-section {
     padding: 80px 20px;
@@ -72,27 +59,27 @@ html, body {
     justify-content: center;
     align-items: center;
     background-image: url('../assets/heroSecImage4.jpg');
-    background-size: contain; /* Adjust this if necessary */
-    background-position: center; /* Centers the image */
+    background-size: contain;
+    background-position: center;
 
-    background-repeat: repeat-x; /* Allows the image to repeat horizontally */
-    background-position: 0% top; /* Initial position */
+    background-repeat: repeat-x;
+    background-position: 0% top;
     height: 60vh;
-    width: 100%; /* Ensure full width */
+    width: 100%;
 
-    animation: moveBackground 10s linear infinite; /* Animation settings */
+    animation: moveBackground 10s linear infinite;
 }
 
 @keyframes moveBackground {
     0% {
-        background-position: 0% top; /* Start position */
+        background-position: 0% top;
     }
 
     50% {
-        background-position: 100% top; /* End position */
+        background-position: 100% top;
     }
     100% {
-        background-position: 0% top; /* End position */
+        background-position: 0% top;
     }
 }
 
@@ -153,9 +140,9 @@ html, body {
 }
 
 hr {
-    height: 5px; /* Adjust the height as needed */
-    border: none; /* Remove the default border */
-    background: linear-gradient(270deg,  #00BFFF, yellow, #00BFFF); /* Change the gradient direction and colors */
+    height: 5px;
+    border: none;
+    background: linear-gradient(270deg,  #00BFFF, yellow, #00BFFF);
     background-size: 300% 100%;
 }
 

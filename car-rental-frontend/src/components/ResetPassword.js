@@ -9,22 +9,20 @@ const ResetPassword = ({ onClose, closeForgot }) => {
     const [resetToken, setResetToken] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [result, setResult] = useState('');
-    const [timeLeft, setTimeLeft] = useState(180); // 2 minutes in seconds
-
+    const [timeLeft, setTimeLeft] = useState(180);
     useEffect(() => {
-        // Timer interval to count down every second
         const timer = setInterval(() => {
             setTimeLeft((prevTime) => {
                 if (prevTime <= 1) {
-                    clearInterval(timer); // Clear interval when time is up
-                    onClose(); // Close modal after time runs out
+                    clearInterval(timer);
+                    onClose();
                     return 0;
                 }
-                return prevTime - 1; // Decrease time by 1 second
+                return prevTime - 1;
             });
         }, 1000);
 
-        return () => clearInterval(timer); // Cleanup interval on component unmount
+        return () => clearInterval(timer);
     }, [onClose]);
 
     const handleResetPassword = async (e) => {
@@ -38,25 +36,24 @@ const ResetPassword = ({ onClose, closeForgot }) => {
             });
             setResult('Password has been reset successfully!');
             setTimeout(() => {
-                closeForgot(); // Close the Forgot Password modal
-                onClose(); // Optionally close the modal after a successful reset
-            }, 2000);
+                closeForgot();
+                onClose();
+            }, 1200);
         } catch (err) {
             setResult('Failed to reset password. Invalid or expired token.');
         }
     };
 
-    // Format time left into minutes and seconds
     const formatTimeLeft = (seconds) => {
         const minutes = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`; // Format to MM:SS
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     };
 
     return (
         <div className="modal">
             <div className="modal-content">
-                <button className="close-button" onClick={onClose}>×</button> {/* Close Button */}
+                <button className="close-button" onClick={onClose}>×</button>
                 <h2>Reset Password</h2>
                 <p>Time left: {formatTimeLeft(timeLeft)}</p>
                 <form onSubmit={handleResetPassword}>
