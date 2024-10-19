@@ -8,7 +8,7 @@ To use the app, clone it to your local machine and run the following commands:
     npm run dev
 ```
 
-The app will be running on http://localhost:3000
+The frontend app will be running on http://localhost:3000
 
 then, use the following commands to run the backend:
 
