@@ -4,11 +4,13 @@ import axios from 'axios';
 import InputField from './InputField';
 import Button from './Button';
 import '../styles/modal.css';
+import ForgotPassModal from "@/components/ForgotPassModal";
 
 const LoginModal = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [result, setResult] = useState('');
+  const [isForgotpassOpen, setIsForgotpassOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +35,10 @@ const LoginModal = ({ onClose }) => {
   };
 
   return (
+
     <div className="modal">
+
+      {isForgotpassOpen && <ForgotPassModal onClose={() => setIsForgotpassOpen(false)} />}
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>×</button>
         <h2>Login</h2>
@@ -55,6 +60,10 @@ const LoginModal = ({ onClose }) => {
           {result && <p className="result-message">{result}</p>}
           <Button text="Login" />
         </form>
+        <button className={"custom-button"} onClick={() => {
+          console.log("forgot password clicked");
+          setIsForgotpassOpen(true)
+        }} >Forgot Password</button>
       </div>
     </div>
   );
