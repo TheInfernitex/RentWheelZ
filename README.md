@@ -21,7 +21,7 @@ To use the app, clone it to your local machine and make a file called *applicati
     spring.security.user.password=12345678
 ```
 
-Brevo is an email service. You can get your API key from [here](https://www.brevo.co/). 
+Brevo is an email service. You can get your API key from [here](https://www.brevo.com/). 
 
 Enter the API key in the *application.properties* file.
 
