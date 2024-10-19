@@ -17,7 +17,7 @@ then,
     mvn clean install
 ```
 
-make a file called application.properties and set the following properties:
+make a file called *application.properties* inside *car-rental-backend/src/main/resources* and set the following properties:
 
 ```properties
     spring.application.name=car-rental-backend
