@@ -9,7 +9,7 @@ const ResetPassword = ({ onClose, closeForgot }) => {
     const [resetToken, setResetToken] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [result, setResult] = useState('');
-    const [timeLeft, setTimeLeft] = useState(120); // 2 minutes in seconds
+    const [timeLeft, setTimeLeft] = useState(180); // 2 minutes in seconds
 
     useEffect(() => {
         // Timer interval to count down every second
