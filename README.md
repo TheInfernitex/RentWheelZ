@@ -10,7 +10,7 @@ To use the app, clone it to your local machine and run the following commands:
 
 The app will be running on http://localhost:3000
 
-then, 
+then, use the following commands to run the backend:
 
 ```bash
     cd car-rental-backend
