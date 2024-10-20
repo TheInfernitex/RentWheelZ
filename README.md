@@ -1,6 +1,7 @@
 RentWheelZ is a Car Rental Website made with Next.js and Springboot.
 
-To use the app, clone it to your local machine and make a file called *application.properties* inside *car-rental-backend/src/main/resources* and set the following properties:
+To use the app, clone it to your local machine and enter your brevo API key in *application.properties*. 
+Brevo is an email service. You can get your API key from [here](https://www.brevo.com/).
 
 ```properties
     spring.application.name=car-rental-backend
@@ -21,9 +22,6 @@ To use the app, clone it to your local machine and make a file called *applicati
     spring.security.user.password=12345678
 ```
 
-Brevo is an email service. You can get your API key from [here](https://www.brevo.com/). 
-
-Enter the API key in the *application.properties* file.
 
 Then, open a terminal and run the following commands:
 
