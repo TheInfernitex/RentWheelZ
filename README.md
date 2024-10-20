@@ -37,8 +37,9 @@ Then, open another terminal and run the following commands to start the backend 
 
 ```bash
     cd car-rental-backend
-    mvn clean install
-    mvn spring-boot:run
+    ./mvnw clean install
+    ./mvnw spring-boot:run
+
 ```
 
 
