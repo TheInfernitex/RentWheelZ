@@ -3,12 +3,16 @@ import React, { useState } from 'react';
 import '../styles/modal.css';
 import InputField from './InputField';
 import Button from './Button';
+import { useAuth } from '../app/AuthContext';
 
 const ProfileModal = ({ onClose, className }) => {
     const [name, setName] = useState('John Doe');
     const [email, setEmail] = useState('johndoe@example.com');
     const [password, setPassword] = useState('********');
     const [editMode, setEditMode] = useState(false);
+    
+  const { setIsLoggedIn } = useAuth();  // Get setIsLoggedIn from the context
+
 
     const handleSave = () => {
         // Logic to save the updated profile details
@@ -51,6 +55,12 @@ const ProfileModal = ({ onClose, className }) => {
                             console.log('in editing mode');
                             setEditMode(true)
                         }} />
+                        <Button text="Logout" onClick={() => {
+                            console.log('logging out');
+                            setIsLoggedIn(false);
+                            onClose();
+                        }} />
+                        
                     </div>
                 )}
             </div>

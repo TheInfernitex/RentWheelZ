@@ -33,7 +33,7 @@ const LoginModal = ({ onClose, onLogin }) => {
         setResult('');
         onClose();
         setIsLoggedIn(true);  // Log the user in
-      }, 2000);
+      }, 1000);
     } catch (err) {
       setResult('Login failed. Please check your credentials.');
       setTimeout(() => {

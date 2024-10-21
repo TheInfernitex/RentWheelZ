@@ -99,13 +99,12 @@ form button {
   top: 0;
   right: 0;
   height: 100vh; /* Full height */
-  width: 30%; /* 30% width */
-  background-color: white; /* Modal background color */
+  width: 40%; /* 30% width */
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
   transition: transform 0.3s ease; /* Transition for sliding effect */
   transform: translateX(100%); /* Start off-screen */
   z-index: 1000; /* Ensure it appears above other elements */
-  background: #0a0a0a;
+  background: #006685;
   color:white;
 }
 
@@ -118,12 +117,23 @@ form button {
 }
 
 .profmodal form{
-  background-color: white;
+  background-color: rgb(0, 54, 90);
+  color:white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   height: 30vh;
+  padding: 2vh 2vw;
 }
 
 .profile-info{
+  height: 30vh;
   margin-top:40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 
