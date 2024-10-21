@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Request</title>
+    <script>
+        function requestFile() {
+            const selectElement = document.getElementById('fileSelect');
+            const fileName = selectElement.value;
+
+            // Show loading message
+            document.getElementById('message').textContent = 'Loading... Please wait.';
+
+            // Create a promise to request the file
+            fetch('/get-file', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fileName })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('File not found');
+                }
+                return response.blob(); // Receive file as blob
+            })
+            .then(blob => {
+                // Create a download link for the file
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+
+                // Remove loading message
+                document.getElementById('message').textContent = '';
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = 'Error: ' + error.message;
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Request a File</h1>
+    <select id="fileSelect">
+        <option value="file1.txt">File 1</option>
+        <option value="file2.txt">File 2</option>
+    </select>
+    <button onclick="requestFile()">Request File</button>
+    <p id="message"></p>
+</body>
+</html>

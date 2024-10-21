@@ -5,12 +5,17 @@ import InputField from './InputField';
 import Button from './Button';
 import '../styles/modal.css';
 import ForgotPassModal from "@/components/ForgotPassModal";
+import { useAuth } from '../app/AuthContext';  // Import the context
 
-const LoginModal = ({ onClose }) => {
+const LoginModal = ({ onClose, onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [result, setResult] = useState('');
   const [isForgotpassOpen, setIsForgotpassOpen] = useState(false);
+  const { setIsLoggedIn } = useAuth();  // Get setIsLoggedIn from the context
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,13 +28,17 @@ const LoginModal = ({ onClose }) => {
       });
       console.log('Login successful:', response.data);
       setResult('Login successful!');
-    } catch (err) {
-      setResult('Login failed. Please check your credentials.');
-    } finally {
+
       setTimeout(() => {
         setResult('');
         onClose();
-      }, 5000);
+        setIsLoggedIn(true);  // Log the user in
+      }, 2000);
+    } catch (err) {
+      setResult('Login failed. Please check your credentials.');
+      setTimeout(() => {
+        setResult('');
+      }, 3000);
     }
   };
 

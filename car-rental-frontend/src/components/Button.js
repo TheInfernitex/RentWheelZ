@@ -2,6 +2,6 @@
 
 import '../styles/button.css';
 
-export default function Button({ text }) {
-  return <button className="custom-button" type="submit">{text}</button>;
+export default function Button({ text, onClick }) {
+  return <button className="custom-button" type="submit" onClick={onClick}>{text}</button>;
 }
