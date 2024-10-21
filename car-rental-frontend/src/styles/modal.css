@@ -14,8 +14,12 @@
 }
 
 .modal-content {
-  background-color: rgb(0, 24, 48);
-  color: #C5C6C7;
+  /* background-color: rgb(0, 24, 48); */
+
+  background: url('../assets/loginBkg2.jpg');
+  background-position: center;
+  background-size: cover;
+  color: white;
   border-radius: 10%;
   padding: 2vh 2vw;
   width: 50vw;
@@ -33,17 +37,19 @@
   position: absolute;
   top: 2vh;
   right: 2vw;
-  background-color: rgba(102, 252, 241, 0.47);
-  color: #C5C6C7;
+  background-color: rgba(0, 0, 0, 0.61);
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   padding: 5px 10px;
-  font-size: 16px;
+  font-size: 30px;
+  font-weight: bolder;
 }
 
 .close-button:hover {
-  background-color: #66fcf2b1;
+  color: #00ddff;
+  border-radius: 14px;
 }
 
 h2 {
@@ -53,7 +59,12 @@ h2 {
 
 .result-message,
 .error-message {
-  color: #66FCF1;
+  /* color: #00db00; */
+  color:rgb(0, 213, 255);
+  font-weight: bolder;
+  background-color: rgba(0, 21, 61, 0.5);
+  box-shadow: 0 0 3px 8px rgba(0, 21, 61, 0.5);
+  /* border-radius: 20px; */
   text-align: center;
 }
 
@@ -63,6 +74,7 @@ form {
   justify-content: space-around;
   align-items: center;
   height: 30vh;
+  font-weight: bolder;
 }
 
 .input-field {
@@ -72,24 +84,26 @@ form {
   justify-content: space-between;
   align-items: center;
   margin-top: 3vh;
+  color:white;
 }
 
 input {
-  background-color: #C5C6C7;
-  color: black;
+  background-color: rgb(0, 103, 124);
+  color: white;
   height: 90%;
   width: 20vw;
   border-radius: 20px;
   text-align: center;
   max-height: 40px;
 }
+input::placeholder {
+  color: white;
+  opacity: 0.6; /* Ensure the color applies fully */
+}
 
 form button {
   margin-top: 4vh;
-}
 
-.close-button {
-  color: black !important;
 }
 
 /* modal.css */
@@ -98,27 +112,35 @@ form button {
   position: fixed;
   top: 0;
   right: 0;
-  height: 100vh; /* Full height */
-  width: 40%; /* 30% width */
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
-  transition: transform 0.3s ease; /* Transition for sliding effect */
-  transform: translateX(100%); /* Start off-screen */
-  z-index: 1000; /* Ensure it appears above other elements */
+  height: 100vh;
+  /* Full height */
+  width: 40%;
+  /* 30% width */
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+  /* Shadow effect */
+  transition: transform 0.3s ease;
+  /* Transition for sliding effect */
+  transform: translateX(100%);
+  /* Start off-screen */
+  z-index: 1000;
+  /* Ensure it appears above other elements */
   background: #006685;
-  color:white;
+  color: white;
 }
 
 .profmodal-content {
-  padding: 20px; /* Padding inside modal */
+  padding: 20px;
+  /* Padding inside modal */
 }
 
 .profile-modal.show {
-  transform: translateX(0); /* Slide in when shown */
+  transform: translateX(0);
+  /* Slide in when shown */
 }
 
-.profmodal form{
+.profmodal form {
   background-color: rgb(0, 54, 90);
-  color:white;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -127,9 +149,9 @@ form button {
   padding: 2vh 2vw;
 }
 
-.profile-info{
+.profile-info {
   height: 30vh;
-  margin-top:40vh;
+  margin-top: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -139,9 +161,10 @@ form button {
 
 .prof-close-button {
   background: transparent;
-  color:deepskyblue;
+  color: deepskyblue;
   border: none;
   font-size: 24px;
   cursor: pointer;
-  float: right; /* Align close button to the right */
+  float: right;
+  /* Align close button to the right */
 }

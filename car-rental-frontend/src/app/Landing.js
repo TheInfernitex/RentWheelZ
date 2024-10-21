@@ -8,6 +8,7 @@ import '../styles/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../app/AuthContext';  // Import the context
+import CursorFollower from '@/components/CursorFollower';
 
 export default function Landing() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -18,6 +19,7 @@ export default function Landing() {
 
     return (
       <div className="home-container">
+            <CursorFollower />
           <nav className="navbar">
               <h2 className="navbar-title">RentWheelZ</h2>
               <div className="nav-buttons">
