@@ -1,5 +1,6 @@
 // src/components/ProfileModal.js
 import React, { useState } from 'react';
+import Image from 'next/image';
 import '../styles/modal.css';
 import InputField from './InputField';
 import Button from './Button';
@@ -24,9 +25,16 @@ const ProfileModal = ({ onClose, className }) => {
         <div className={`profmodal profile-modal ${className}`}>
             <div className="profmodal-content profile-modal-content">
                 <button className="prof-close-button" onClick={onClose}>×</button>
-                <h2>Profile</h2>
+                <h2>Profile</h2>   
                 {editMode ? (
-                    <form>
+                    <form>      
+                        <Image
+                            src="/assets/profileIcon.png" // Use the root-relative path
+                            alt="Profile Icon" // Provide a descriptive alt text
+                            width={100} // Set the desired width
+                            height={100} // Set the desired height
+                            className='profile-icon' // Add a custom class name
+                        />
                         <InputField
                             label="Name: "
                             type="text"
@@ -49,6 +57,14 @@ const ProfileModal = ({ onClose, className }) => {
                     </form>
                 ) : (
                     <div className="profile-info">
+                         
+                        <Image
+                            src="/assets/profileIcon.png" // Use the root-relative path
+                            alt="Profile Icon" // Provide a descriptive alt text
+                            width={100} // Set the desired width
+                            height={100} // Set the desired height
+                            className='profile-icon' // Add a custom class name
+                        />
                         <p><strong>Name:</strong> {name}</p>
                         <p><strong>Email:</strong> {email}</p>
                         <Button text="Edit Profile" onClick={() => {

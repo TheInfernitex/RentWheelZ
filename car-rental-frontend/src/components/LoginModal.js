@@ -52,14 +52,12 @@ const LoginModal = ({ onClose, onLogin }) => {
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <InputField
-            label="Email: "
             type="email"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <InputField
-            label="Password: "
             type="password"
             placeholder="Enter your password"
             value={password}

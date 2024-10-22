@@ -3,15 +3,14 @@ package com.infernitex.car_rental_backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infernitex.car_rental_backend.model.User;
-import com.infernitex.car_rental_backend.service.UserService;
 import com.infernitex.car_rental_backend.service.EmailService;
+import com.infernitex.car_rental_backend.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")
@@ -26,6 +25,11 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<User> signup(@RequestBody User user) {
+        user.setFirstName("firstName");
+        user.setLastName("lastName");
+        user.setAddress("address");
+        user.setPhoneNo("phoneno");
+        user.setIsLoggedIn("false"); 
         User newUser = userService.registerUser(user);
         return ResponseEntity.ok(newUser);
     }

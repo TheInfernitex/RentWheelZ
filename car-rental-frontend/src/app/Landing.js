@@ -15,7 +15,15 @@ export default function Landing() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { isLoggedIn } = useAuth(); // Use the context
+  const [isSlideOut, setIsSlideOut] = useState(false); // New state for sliding out
 
+  const closeProfileModal = () => {
+    setIsSlideOut(true); // Set the slide-out state
+    setTimeout(() => {
+      setIsProfileOpen(false); // After the animation, close the modal
+      setIsSlideOut(false); // Reset the slide-out state
+    }, 300); // Duration should match the CSS transition time
+  };
 
     return (
       <div className="home-container">
@@ -41,7 +49,13 @@ export default function Landing() {
 
           {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)}/>}
           {isSignupOpen && <SignupModal onClose={() => setIsSignupOpen(false)}/>}
-          {isProfileOpen && <ProfileModal onClose={() => setIsProfileOpen(false)} className="show"/>}
+          {/* {isProfileOpen && <ProfileModal onClose={() => setIsProfileOpen(false)} className={`profmodal ${isProfileOpen ? 'active' : ''}`} />} */}
+          {isProfileOpen && (
+        <ProfileModal
+          onClose={closeProfileModal}
+          className={`profmodal ${isProfileOpen ? 'active' : ''} ${isSlideOut ? 'slide-out' : ''}`}
+        />
+      )}
 
           <header className="hero-section">
               <h1>Welcome to RentWheelZ</h1>

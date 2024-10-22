@@ -7,9 +7,15 @@ import '../styles/modal.css';
 
 const SignupModal = ({ onClose }) => {
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [address, setAddress] = useState('');
+  const [phoneNo, setPhoneNo] = useState('');
+
   const [result, setResult] = useState('');
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,12 +29,16 @@ const SignupModal = ({ onClose }) => {
     try {
       const response = await axios.post('http://localhost:8081/api/users/signup', {
         email,
+        firstName,
+        lastName,
         password,
+        address,
+        phoneNo,
       });
       setResult('Signup successful!');
       setTimeout(() => {
         onClose();
-      }, 2000);
+      }, 1000);
     } catch (err) {
       console.error('Error during signup:', err.message);
       setResult('Signup failed. Please try again.');
@@ -37,26 +47,47 @@ const SignupModal = ({ onClose }) => {
 
   return (
     <div className="modal">
-      <div className="modal-content">
+      <div className="modal-content signup-modal-content">
         <button className="close-button" onClick={onClose}>×</button>
         <h2>Signup</h2>
         <form onSubmit={handleSubmit}>
           <InputField
-            label="Email: "
             type="email"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <InputField
-            label="Password: "
+            type="text"
+            placeholder="Enter your first name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <InputField
+            type="text"
+            placeholder="Enter your last name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <InputField
+            type="text"
+            placeholder="Enter your address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <InputField
+            type="text"
+            placeholder="Enter your phone number: "
+            value={phoneNo}
+            onChange={(e) => setPhoneNo(e.target.value)}
+          />
+          <InputField
             type="password"
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <InputField
-            label="Confirm Password: "
             type="password"
             placeholder="Confirm your password"
             value={confirmPassword}
@@ -71,3 +102,6 @@ const SignupModal = ({ onClose }) => {
 };
 
 export default SignupModal;
+
+// src/components/CursorFollower.js
+
