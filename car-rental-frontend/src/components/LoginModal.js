@@ -7,7 +7,7 @@ import '../styles/modal.css';
 import ForgotPassModal from "@/components/ForgotPassModal";
 import { useAuth } from '../app/AuthContext';  // Import the context
 
-const LoginModal = ({ onClose, onLogin }) => {
+const LoginModal = ({ onClose}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [result, setResult] = useState('');
@@ -44,12 +44,12 @@ const LoginModal = ({ onClose, onLogin }) => {
 
   return (
 
-    <div className="modal">
+    <div className="modal login-modal">
 
       {isForgotpassOpen && <ForgotPassModal onClose={() => setIsForgotpassOpen(false)} />}
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>×</button>
-        <h2>Login</h2>
+        <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <InputField
             type="email"
@@ -66,10 +66,17 @@ const LoginModal = ({ onClose, onLogin }) => {
           {result && <p className="result-message">{result}</p>}
           <Button text="Login" />
         </form>
+
+        <div className = "login-modal-buttons">
+
+        <button className={"custom-button"} onClick={() => {
+          // onClose();
+        }} >Sign Up</button>
         <button className={"custom-button"} onClick={() => {
           console.log("forgot password clicked");
           setIsForgotpassOpen(true)
         }} >Forgot Password</button>
+        </div>
       </div>
     </div>
   );

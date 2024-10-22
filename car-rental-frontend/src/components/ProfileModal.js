@@ -25,7 +25,7 @@ const ProfileModal = ({ onClose, className }) => {
         <div className={`profmodal profile-modal ${className}`}>
             <div className="profmodal-content profile-modal-content">
                 <button className="prof-close-button" onClick={onClose}>×</button>
-                <h2>Profile</h2>   
+                <h1>Profile</h1>   
                 {editMode ? (
                     <form>      
                         <Image

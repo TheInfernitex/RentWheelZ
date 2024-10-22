@@ -47,7 +47,7 @@ export default function Landing() {
               </div>
           </nav>
 
-          {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)}/>}
+          {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
           {isSignupOpen && <SignupModal onClose={() => setIsSignupOpen(false)}/>}
           {/* {isProfileOpen && <ProfileModal onClose={() => setIsProfileOpen(false)} className={`profmodal ${isProfileOpen ? 'active' : ''}`} />} */}
           {isProfileOpen && (
@@ -62,7 +62,7 @@ export default function Landing() {
               <p>Your one-stop solution for hassle-free car rentals.</p>
           </header>
           <hr />
-
+          <div className='content'>
           <section className="features">
               <h2>Why Choose Us?</h2>
               <div className="feature-list">
@@ -126,6 +126,7 @@ export default function Landing() {
                   </div>
               </div>
           </section>
+          </div>
 
           <hr/>
 

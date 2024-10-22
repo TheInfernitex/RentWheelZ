@@ -49,7 +49,7 @@ const SignupModal = ({ onClose }) => {
     <div className="modal">
       <div className="modal-content signup-modal-content">
         <button className="close-button" onClick={onClose}>×</button>
-        <h2>Signup</h2>
+        <h1>Signup</h1>
         <form onSubmit={handleSubmit}>
           <InputField
             type="email"

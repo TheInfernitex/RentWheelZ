@@ -26,7 +26,7 @@ const CursorFollower = () => {
     left: position.x,
     width: '40px',           // Increased size
     height: '40px',          // Increased size
-    backgroundColor: 'rgb(255 255 255 / 27%)',  // More visible color
+    backgroundColor: 'rgb(255 255 255 / 10%)',  // More visible color
     borderRadius: '50%',
     pointerEvents: 'none',
     transform: 'translate(-50%, -50%)',  // Center the follower
