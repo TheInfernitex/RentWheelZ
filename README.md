@@ -1,5 +1,6 @@
 RentWheelZ is a Car Rental Website made with Next.js and Springboot. 
 
+
 [Current Status: Milestone 2 Complete!]
 
 Features : 
@@ -9,10 +10,11 @@ Features :
 - Profile Page with Dynamic Data Fetching and Updation
 - Delete Account with a single click
 
-To use the app, clone it to your local machine and enter your brevo API key in *application.properties*. 
+
 
 Brevo is an email service whose API key can be generated [here](https://www.brevo.com/).
 
+To use the app, clone it to your local machine and enter your brevo API key in *application.properties*:
 ```properties
     spring.application.name=car-rental-backend
 
@@ -26,7 +28,7 @@ Brevo is an email service whose API key can be generated [here](https://www.brev
     spring.jpa.show-sql=true
     server.port=8081
     
-    brevo.api.key=ENTER BREVO API KEY HERE
+    brevo.api.key=*ENTER_BREVO_API_KEY_HERE*
     
     spring.security.user.name=user
     spring.security.user.password=12345678
