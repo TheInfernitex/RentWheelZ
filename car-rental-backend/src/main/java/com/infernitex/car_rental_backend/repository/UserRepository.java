@@ -11,4 +11,5 @@ import com.infernitex.car_rental_backend.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
     User findByResetToken(String resetToken);
+    User findById(long id);
 }

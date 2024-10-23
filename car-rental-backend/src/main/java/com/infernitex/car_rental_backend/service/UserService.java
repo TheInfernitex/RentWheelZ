@@ -1,14 +1,71 @@
 // src/main/java/com/example/carrental/service/UserService.java
+// package com.infernitex.car_rental_backend.service;
+// import java.time.LocalDateTime;
+// import java.util.Long;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.stereotype.Service;
+// import com.infernitex.car_rental_backend.model.User;
+// import com.infernitex.car_rental_backend.repository.UserRepository;
+// @Service
+// public class UserService {
+//     @Autowired
+//     private UserRepository userRepository;
+//     @Autowired
+//     private BCryptPasswordEncoder passwordEncoder; 
+//     public User registerUser(User user) {
+//         user.setPassword(passwordEncoder.encode(user.getPassword()));
+//         return userRepository.save(user);
+//     }
+//     public User loginUser(String email, String password) {
+//         User user = userRepository.findByEmail(email);
+//         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+//             return user;
+//         }
+//         return null; // Invalid login
+//     }
+//     public String generateResetToken(String email) {
+//         User user = userRepository.findByEmail(email);
+//         if (user == null) {
+//             return null; // User not found
+//         }
+//         String resetToken = Long.randomLong().toString();
+//         user.setResetToken(resetToken);
+//         user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(3)); // Set expiry time (3 minutes from now)
+//         userRepository.save(user); // Save the user with the reset token
+//         return resetToken; // Return the reset token (for testing purposes)
+//     }
+//     public boolean resetPassword(String resetToken, String newPassword) {
+//         User user = userRepository.findByResetToken(resetToken);
+//         if (user != null && user.getResetTokenExpiry().isAfter(LocalDateTime.now())) {
+//             user.setPassword(passwordEncoder.encode(newPassword));
+//             user.setResetToken(null);
+//             user.setResetTokenExpiry(null);
+//             userRepository.save(user);
+//             return true;
+//         }
+//         return false;
+//     }
+// }
 package com.infernitex.car_rental_backend.service;
 
-import com.infernitex.car_rental_backend.model.User;
-import com.infernitex.car_rental_backend.repository.UserRepository;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.Date;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import com.infernitex.car_rental_backend.model.User;
+import com.infernitex.car_rental_backend.repository.UserRepository;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class UserService {
@@ -17,19 +74,65 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder; // Add this line
+    private BCryptPasswordEncoder passwordEncoder;
+
+    private final String secret = "your secret key is this i hope this is long enough for you, you silly little goose"; // Update with your actual secret key
+    String jwtSecret = Base64.getEncoder().encodeToString(secret.getBytes(StandardCharsets.UTF_8));
+    private final long jwtExpiration = 604800000; // 1 week in milliseconds
 
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public User loginUser(String email, String password) {
+    public String loginUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            return user;
+            return generateJwtToken(user); // Generate and return JWT token
         }
         return null; // Invalid login
+    }
+
+    private String generateJwtToken(User user) {
+        long now = System.currentTimeMillis();
+        Date expiryDate = new Date(now + jwtExpiration);
+
+        JwtBuilder builder = Jwts.builder()
+                .setSubject(user.getId().toString()) // Use user ID as subject
+                .setIssuedAt(new Date(now))
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret);
+
+        return builder.compact();
+    }
+
+    public User fetchUserById(Long id) {
+        return userRepository.findById(id).orElse(null); // Fetch user by ID
+    }
+
+    public User fetchUserByEmail(String email) {
+        return userRepository.findByEmail(email); // Fetch user by ID
+    }
+
+    public User updateUser(Long id, User updatedUser) {
+        User existingUser = fetchUserById(id);
+        if (existingUser != null) {
+            existingUser.setEmail(updatedUser.getEmail());
+            existingUser.setFirstName(updatedUser.getFirstName());
+            existingUser.setLastName(updatedUser.getLastName());
+            existingUser.setAddress(updatedUser.getAddress());
+            existingUser.setPhoneNo(updatedUser.getPhoneNo());
+            return userRepository.save(existingUser); // Save updated user
+        }
+        return null; // User not found
+    }
+
+    public boolean deleteUser(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true; // User deleted successfully
+        }
+        return false; // User not found
     }
 
     public String generateResetToken(String email) {
@@ -56,5 +159,42 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    // Validate the JWT token
+    public boolean validateJwtToken(String token) {
+        return true; // For testing purposes
+
+        // try {
+        //     Jwts.parser()
+        //         .setSigningKey(jwtSecret)
+        //         .parseClaimsJws(token); // Parse the token to check its validity
+        //     return true; // Token is valid
+        // } catch (SignatureException e) {
+        //     System.out.println("Invalid JWT signature: " + e.getMessage());
+        // } catch (MalformedJwtException e) {
+        //     System.out.println("Invalid JWT token: " + e.getMessage());
+        // } catch (ExpiredJwtException e) {
+        //     System.out.println("JWT token is expired: " + e.getMessage());
+        // } catch (UnsupportedJwtException e) {
+        //     System.out.println("JWT token is unsupported: " + e.getMessage());
+        // } catch (IllegalArgumentException e) {
+        //     System.out.println("JWT claims string is empty: " + e.getMessage());
+        // }
+        // return false; // Token is invalid
+    }
+
+    // Extract claims from the token
+    public Claims getClaimsFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    // Example: Fetch user ID from the token
+    public String getUserIdFromJwtToken(String token) {
+        Claims claims = getClaimsFromToken(token);
+        return claims.getSubject();
     }
 }

@@ -14,7 +14,7 @@ export default function Landing() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { isLoggedIn } = useAuth(); // Use the context
+  const { isLoggedIn, userId } = useAuth(); // Use the context
   const [isSlideOut, setIsSlideOut] = useState(false); // New state for sliding out
 
   const closeProfileModal = () => {
@@ -39,6 +39,7 @@ export default function Landing() {
                   ) : (
                   <button className="nav-button" onClick={() => { /* handle profile click */ }}>
                       <FontAwesomeIcon icon={faUser} onClick={() => {
+                            console.log('id = ', userId);
                           console.log('profile opened')
                           setIsProfileOpen(true)
                       }}/>

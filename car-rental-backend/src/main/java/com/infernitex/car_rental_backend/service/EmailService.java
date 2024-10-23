@@ -1,6 +1,10 @@
 
 package com.infernitex.car_rental_backend.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,10 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class EmailService {
@@ -53,5 +53,7 @@ public class EmailService {
 
         ResponseEntity<String> response = restTemplate.exchange(
                 url, HttpMethod.POST, request, String.class);
+
+        System.out.println(response);
     }
 }

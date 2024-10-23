@@ -12,7 +12,7 @@ const LoginModal = ({ onClose}) => {
   const [password, setPassword] = useState('');
   const [result, setResult] = useState('');
   const [isForgotpassOpen, setIsForgotpassOpen] = useState(false);
-  const { setIsLoggedIn } = useAuth();  // Get setIsLoggedIn from the context
+  const { login } = useAuth();  
 
 
 
@@ -26,16 +26,20 @@ const LoginModal = ({ onClose}) => {
         email,
         password,
       });
-      console.log('Login successful:', response.data);
+      console.log('Login successful:', response.data.first, '  ', response.data.second);
       setResult('Login successful!');
+
+      const jwtToken = response.data.first;  // Assuming 'first' is the token
+      const userId = response.data.second;
 
       setTimeout(() => {
         setResult('');
         onClose();
-        setIsLoggedIn(true);  // Log the user in
+        login(jwtToken, userId);  // Log the user in
       }, 1000);
     } catch (err) {
       setResult('Login failed. Please check your credentials.');
+      
       setTimeout(() => {
         setResult('');
       }, 3000);
