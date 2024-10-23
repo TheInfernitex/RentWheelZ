@@ -37,9 +37,6 @@ public class User {
     private String phoneNo;
 
     @Column
-    private String isLoggedIn;
-
-    @Column
     private String resetToken;
 
     @Column
@@ -103,14 +100,6 @@ public class User {
 
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
-    }
-
-    public String getIsLoggedIn() {
-        return isLoggedIn;
-    }
-
-    public void setIsLoggedIn(String isLoggedIn) {
-        this.isLoggedIn = isLoggedIn;
     }
 
     public String getResetToken() {

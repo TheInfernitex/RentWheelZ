@@ -31,11 +31,12 @@ const LoginModal = ({ onClose}) => {
 
       const jwtToken = response.data.first;  // Assuming 'first' is the token
       const userId = response.data.second;
+      
+      login(jwtToken, userId);  // Log the user in
 
       setTimeout(() => {
         setResult('');
         onClose();
-        login(jwtToken, userId);  // Log the user in
       }, 1000);
     } catch (err) {
       setResult('Login failed. Please check your credentials.');

@@ -1,52 +1,4 @@
-// src/main/java/com/example/carrental/service/UserService.java
-// package com.infernitex.car_rental_backend.service;
-// import java.time.LocalDateTime;
-// import java.util.Long;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-// import org.springframework.stereotype.Service;
-// import com.infernitex.car_rental_backend.model.User;
-// import com.infernitex.car_rental_backend.repository.UserRepository;
-// @Service
-// public class UserService {
-//     @Autowired
-//     private UserRepository userRepository;
-//     @Autowired
-//     private BCryptPasswordEncoder passwordEncoder; 
-//     public User registerUser(User user) {
-//         user.setPassword(passwordEncoder.encode(user.getPassword()));
-//         return userRepository.save(user);
-//     }
-//     public User loginUser(String email, String password) {
-//         User user = userRepository.findByEmail(email);
-//         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-//             return user;
-//         }
-//         return null; // Invalid login
-//     }
-//     public String generateResetToken(String email) {
-//         User user = userRepository.findByEmail(email);
-//         if (user == null) {
-//             return null; // User not found
-//         }
-//         String resetToken = Long.randomLong().toString();
-//         user.setResetToken(resetToken);
-//         user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(3)); // Set expiry time (3 minutes from now)
-//         userRepository.save(user); // Save the user with the reset token
-//         return resetToken; // Return the reset token (for testing purposes)
-//     }
-//     public boolean resetPassword(String resetToken, String newPassword) {
-//         User user = userRepository.findByResetToken(resetToken);
-//         if (user != null && user.getResetTokenExpiry().isAfter(LocalDateTime.now())) {
-//             user.setPassword(passwordEncoder.encode(newPassword));
-//             user.setResetToken(null);
-//             user.setResetTokenExpiry(null);
-//             userRepository.save(user);
-//             return true;
-//         }
-//         return false;
-//     }
-// }
+
 package com.infernitex.car_rental_backend.service;
 
 import java.nio.charset.StandardCharsets;
@@ -117,7 +69,6 @@ public class UserService {
     public User updateUser(Long id, User updatedUser) {
         User existingUser = fetchUserById(id);
         if (existingUser != null) {
-            existingUser.setEmail(updatedUser.getEmail());
             existingUser.setFirstName(updatedUser.getFirstName());
             existingUser.setLastName(updatedUser.getLastName());
             existingUser.setAddress(updatedUser.getAddress());

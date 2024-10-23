@@ -77,7 +77,7 @@ const SignupModal = ({ onClose }) => {
           />
           <InputField
             type="text"
-            placeholder="Enter your phone number: "
+            placeholder="Enter your phone number"
             value={phoneNo}
             onChange={(e) => setPhoneNo(e.target.value)}
           />
