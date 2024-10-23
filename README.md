@@ -10,6 +10,7 @@ Features :
 - Delete Account with a single click
 
 To use the app, clone it to your local machine and enter your brevo API key in *application.properties*. 
+
 Brevo is an email service whose API key can be generated [here](https://www.brevo.com/).
 
 ```properties
