@@ -15,9 +15,13 @@ import com.infernitex.car_rental_backend.model.User;
 import com.infernitex.car_rental_backend.repository.UserRepository;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Service
 public class UserService {
@@ -114,26 +118,26 @@ public class UserService {
 
     // Validate the JWT token
     public boolean validateJwtToken(String token) {
-        return true; // For testing purposes
-
-        // try {
-        //     Jwts.parser()
-        //         .setSigningKey(jwtSecret)
-        //         .parseClaimsJws(token); // Parse the token to check its validity
-        //     return true; // Token is valid
-        // } catch (SignatureException e) {
-        //     System.out.println("Invalid JWT signature: " + e.getMessage());
-        // } catch (MalformedJwtException e) {
-        //     System.out.println("Invalid JWT token: " + e.getMessage());
-        // } catch (ExpiredJwtException e) {
-        //     System.out.println("JWT token is expired: " + e.getMessage());
-        // } catch (UnsupportedJwtException e) {
-        //     System.out.println("JWT token is unsupported: " + e.getMessage());
-        // } catch (IllegalArgumentException e) {
-        //     System.out.println("JWT claims string is empty: " + e.getMessage());
-        // }
-        // return false; // Token is invalid
+        try {
+            Jwts.parserBuilder() // Use parserBuilder for newer versions of JJWT
+                .setSigningKey(jwtSecret) // Set the signing key used in token generation
+                .build() // Build the parser with the signing key
+                .parseClaimsJws(token); // Parse the token to check its validity
+            return true; // Token is valid
+        } catch (SignatureException e) {
+            System.out.println("Invalid JWT signature: " + e.getMessage());
+        } catch (MalformedJwtException e) {
+            System.out.println("Invalid JWT token: " + e.getMessage());
+        } catch (ExpiredJwtException e) {
+            System.out.println("JWT token is expired: " + e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            System.out.println("JWT token is unsupported: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("JWT claims string is empty: " + e.getMessage());
+        }
+        return false; // Token is invalid
     }
+
 
     // Extract claims from the token
     public Claims getClaimsFromToken(String token) {
