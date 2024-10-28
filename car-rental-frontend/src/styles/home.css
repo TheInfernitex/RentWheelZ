@@ -4,7 +4,7 @@ html,
 body {
     height: 100%;
     margin: 0;
-    background-color: #161821;
+    background-color: #000000;
     
 }
 
@@ -140,6 +140,7 @@ body {
     opacity: 0; /* Initial state for fade-in */
     transform: translateY(20px); /* Start slightly below */
     animation: fadeInUp 1.5s ease-out forwards; /* Animation */
+    width: 100%;
 }
 
 @keyframes fadeInUp {
@@ -207,6 +208,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.feature-item p {
+    width: 100%;
 }
 
 .feature-item h3 {

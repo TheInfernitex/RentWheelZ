@@ -34,6 +34,9 @@ public class User {
     private String address;
 
     @Column
+    private String license_url;
+
+    @Column
     private String phoneNo;
 
     @Column
@@ -92,6 +95,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getLicense_url() {
+        return license_url;
+    }
+
+    public void setLicense_url(String license_url) {
+        this.license_url = license_url;
     }
 
     public String getPhoneNo() {

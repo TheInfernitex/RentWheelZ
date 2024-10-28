@@ -9,20 +9,18 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null)
-  const [jwtToken, setJwtToken] = useState(null); // Store JWT token
-
+  const [jwtToken, setJwtToken] = useState(null); 
   const login = (token, id) => {
     setIsLoggedIn(true);
     setUserId(id)
-    setJwtToken(token); // Set the JWT token upon login
+    setJwtToken(token); 
   };
 
   const logout = () => {
     setIsLoggedIn(false);
     setUserId(null);
-    setJwtToken(null); // Clear the JWT token upon logout
+    setJwtToken(null); 
     console.log('Logged out');
-    // set isLoggedIn field in db to false:
     loggedOut();
   };
   

@@ -1,29 +1,36 @@
 "use client";
 
 import { useState } from 'react';
-import LoginModal from '../components/LoginModal';
-import SignupModal from '../components/SignupModal';
+import '@/styles/home.css';
+import { useAuth } from '../AuthContext';  
+
+import LoginModal from '@/components/LoginModal';
+import SignupModal from '@/components/SignupModal';
 import ProfileModal from "@/components/ProfileModal";
-import '../styles/home.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from '../app/AuthContext';  // Import the context
 import CursorFollower from '@/components/CursorFollower';
+import Vehicles from '../../components/Vehicles';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faCar } from '@fortawesome/free-solid-svg-icons';
 
 export default function Landing() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { isLoggedIn, userId } = useAuth(); // Use the context
-  const [isSlideOut, setIsSlideOut] = useState(false); // New state for sliding out
+    const { isLoggedIn, userId } = useAuth(); 
 
-  const closeProfileModal = () => {
-    setIsSlideOut(true); // Set the slide-out state
-    setTimeout(() => {
-      setIsProfileOpen(false); // After the animation, close the modal
-      setIsSlideOut(false); // Reset the slide-out state
-    }, 300); // Duration should match the CSS transition time
-  };
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isSignupOpen, setIsSignupOpen] = useState(false);
+
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const [isSlideOut, setIsSlideOut] = useState(false); 
+
+    const [isVehiclesOpen, setIsVehiclesOpen] = useState(false);
+
+    const closeProfileModal = () => {
+        setIsSlideOut(true); // Set the slide-out state
+        setTimeout(() => {
+            setIsProfileOpen(false); // After the animation, close the modal
+            setIsSlideOut(false); // Reset the slide-out state
+        }, 300); // Duration should match the CSS transition time
+    };
 
     return (
       <div className="home-container">
@@ -37,31 +44,41 @@ export default function Landing() {
                       <button className="nav-button" onClick={() => setIsSignupOpen(true)}>Signup</button>
                   </>
                   ) : (
-                  <button className="nav-button" onClick={() => { /* handle profile click */ }}>
-                      <FontAwesomeIcon icon={faUser} onClick={() => {
-                            console.log('id = ', userId);
-                          console.log('profile opened')
-                          setIsProfileOpen(true)
-                      }}/>
-                  </button>
+                    <>
+                        <FontAwesomeIcon className="nav-button" icon={faCar} onClick={() => {
+                            console.log('vehicle')
+                            if (isVehiclesOpen) {
+                                setIsVehiclesOpen(false);
+                            } else {    
+                                setIsVehiclesOpen(true);
+                            }
+                        }}/>
+                        <FontAwesomeIcon className = "nav-button" icon={faUser} onClick={() => {
+                                console.log('id = ', userId);
+                            console.log('profile opened')
+                            setIsProfileOpen(true)
+                        }}/>
+                    </>
                   )}
               </div>
           </nav>
 
-          {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
-          {isSignupOpen && <SignupModal onClose={() => setIsSignupOpen(false)}/>}
-          {/* {isProfileOpen && <ProfileModal onClose={() => setIsProfileOpen(false)} className={`profmodal ${isProfileOpen ? 'active' : ''}`} />} */}
-          {isProfileOpen && (
-        <ProfileModal
-          onClose={closeProfileModal}
-          className={`profmodal ${isProfileOpen ? 'active' : ''} ${isSlideOut ? 'slide-out' : ''}`}
-        />
-      )}
+            {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
+            {isSignupOpen && <SignupModal onClose={() => setIsSignupOpen(false)}/>}
+            {isProfileOpen && (
+                <ProfileModal
+                onClose={closeProfileModal}
+                className={`profmodal ${isProfileOpen ? 'active' : ''} ${isSlideOut ? 'slide-out' : ''}`}
+                />
+            )}
 
-          <header className="hero-section">
-              <h1>Welcome to RentWheelZ</h1>
-              <p>Your one-stop solution for hassle-free car rentals.</p>
-          </header>
+            {isVehiclesOpen ? (<Vehicles/>) : (
+                <header className="hero-section">
+                    <h1>Welcome to RentWheelZ</h1>
+                    <p>Your one-stop solution for hassle-free car rentals.</p>
+                </header>
+            )}
+
           <hr />
           <div className='content'>
           <section className="features">
