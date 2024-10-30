@@ -51,7 +51,7 @@ body {
 
 .nav-buttons {
     display: flex;
-    gap: 15px;
+    gap: 20px;
 }
 
 .nav-button {
@@ -66,7 +66,20 @@ body {
 }
 
 .nav-button:hover {
+    /* font-size: 1.1rem; */
     color: #66FCF1;
+    /* border: 2px solid #66FCF1; */
+    /* border-radius: 100%; */
+}
+
+.nav-icon:hover{
+    font-size: 1.1rem; 
+    border: 2px solid #66FCF1;
+    border-radius: 100%;
+}
+
+.clickedIcon{
+    color:#66FCF1;
 }
 
 

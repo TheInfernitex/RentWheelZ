@@ -45,15 +45,16 @@ export default function Landing() {
                   </>
                   ) : (
                     <>
-                        <FontAwesomeIcon className="nav-button" icon={faCar} onClick={() => {
+                        <FontAwesomeIcon className={`nav-button nav-icon ${isVehiclesOpen ? 'clickedIcon' : ''}`}  icon={faCar} onClick={() => {
                             console.log('vehicle')
                             if (isVehiclesOpen) {
                                 setIsVehiclesOpen(false);
                             } else {    
                                 setIsVehiclesOpen(true);
                             }
+
                         }}/>
-                        <FontAwesomeIcon className = "nav-button" icon={faUser} onClick={() => {
+                        <FontAwesomeIcon className = "nav-button nav-icon" icon={faUser} onClick={() => {
                                 console.log('id = ', userId);
                             console.log('profile opened')
                             setIsProfileOpen(true)

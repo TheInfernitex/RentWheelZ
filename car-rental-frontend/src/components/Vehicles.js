@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/vehicles.css';
+import BookingModal from './BookingModal';
 import { useAuth } from '../app/AuthContext';
+import Button from './Button';
 
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([]);
@@ -11,13 +13,25 @@ const Vehicles = () => {
         capacity: '',
         price: ''
     });
+    const [isBookOpen, setIsBookOpen] = useState(false);
+    const [vehicleId, setVehicleId] = useState(null);
+    const [company, setCompany] = useState(null);
+    const [model, setModel] = useState(null);
     
-    const { jwtToken } = useAuth();
+    const { jwtToken, userId } = useAuth();
+
+    const handleBooking = async (vehicleId, vehicleCompany, vehicleModel) => {
+        console.log('Booking vehicle ', vehicleCompany , ' ', vehicleModel);
+        setVehicleId(vehicleId);
+        setCompany(vehicleCompany);
+        setModel(vehicleModel);
+        setIsBookOpen(true);
+    }
+
 
     useEffect(() => {
         const fetchVehicles = async () => {
             try {
-                // const response = await axios.get('http://localhost:8081/api/vehicles/all');
                 const response = await axios.get(`http://localhost:8081/api/vehicles/all`, {
                     params: {
                         token: jwtToken,
@@ -56,6 +70,16 @@ const Vehicles = () => {
 
     return (
         <div className='vehicleContainer'>
+            {isBookOpen && (
+                <BookingModal 
+                    onClose={() => setIsBookOpen(false)} 
+                    userId={userId} 
+                    vehicleId={vehicleId} 
+                    company={company} 
+                    model={model}
+                />
+            )}
+        
             <h1>Vehicles</h1>
             <div className="filterVehicle">
                 <input
@@ -104,6 +128,7 @@ const Vehicles = () => {
                             <p>Rating: {vehicle.rating}</p>
                             <p>Number Plate: {vehicle.numberPlate}</p>
                         </div>
+                        <Button text="Book" onClick={()=>{handleBooking(vehicle.id, vehicle.companyName, vehicle.model)}} />
                     </li>
                 ))}
             </ul>

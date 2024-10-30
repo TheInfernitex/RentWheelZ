@@ -73,10 +73,6 @@ const LoginModal = ({ onClose}) => {
         </form>
 
         <div className = "login-modal-buttons">
-
-        <button className={"custom-button"} onClick={() => {
-          // onClose();
-        }} >Sign Up</button>
         <button className={"custom-button"} onClick={() => {
           console.log("forgot password clicked");
           setIsForgotpassOpen(true)
