@@ -11,7 +11,9 @@ Features :
 - Delete Account with a single click
 - See available Vehicles
 - Searching and Filtering
-- Book a vehicle
+- Book a vehicle using Dynamic Calendar without worry of overlaps
+- Seamlessly View the bookings in profile page
+- jwt validation for all sensitive apis
 
 
 
