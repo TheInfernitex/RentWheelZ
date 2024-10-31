@@ -16,7 +16,9 @@ const BookingModal = ({ onClose, userId, vehicleId, company, model }) => {
     useEffect(() => {
         const fetchDisabledDates = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/api/bookings/unavailable-dates/${vehicleId}`);
+                const response = await axios.get(`http://localhost:8081/api/bookings/unavailable-dates/${vehicleId}`, {
+                    params: { token: jwtToken },
+                });
                 setDisabledDates(response.data);
             } catch (error) {
                 console.error('Error fetching disabled dates:', error);

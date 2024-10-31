@@ -38,8 +38,11 @@ public class VehicleController {
     }
 
     @GetMapping("/vehicle")
-    public Vehicle getVehicle(@RequestParam Long id) {
-        return vehicleService.findById(id);
+    public Vehicle getVehicle(@RequestParam Long vehicleId, @RequestParam String token) {
+        if(!userService.validateJwtToken(token)) {
+            return null;
+        }
+        return vehicleService.findById(vehicleId);
     }
 
 }

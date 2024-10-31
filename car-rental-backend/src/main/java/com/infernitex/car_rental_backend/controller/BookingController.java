@@ -35,7 +35,10 @@ public class BookingController {
     }
 
     @GetMapping("/customer/{customerId}")
-    public List<Booking> getBookingsByCustomerId(@PathVariable Long customerId) {
+    public List<Booking> getBookingsByCustomerId(@PathVariable Long customerId, @RequestParam String token) {
+        if (!userService.validateJwtToken(token)) {
+            return null;
+        }
         return bookingService.getBookingsByCustomerId(customerId);
     }
 
@@ -48,7 +51,10 @@ public class BookingController {
     }
 
     @GetMapping("/unavailable-dates/{vehicleId}")
-    public List<LocalDate> getBookedDatesByVehicleId(@PathVariable Long vehicleId) {
+    public List<LocalDate> getBookedDatesByVehicleId(@PathVariable Long vehicleId, @RequestParam String token) {
+        if (!userService.validateJwtToken(token)) {
+            return null;
+        }
         List<Booking> bookings = bookingService.getBookingsByVehicleId(vehicleId);
         List<LocalDate> bookedDates = new ArrayList<>();
         for (Booking booking : bookings) {

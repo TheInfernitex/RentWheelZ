@@ -25,7 +25,9 @@ const ProfileModal = ({ onClose, className }) => {
 useEffect(() => {
     const fetchBookings = async () => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/bookings/customer/${customerId}`);
+            const response = await axios.get(`http://localhost:8081/api/bookings/customer/${customerId}`,{
+                params: { token: jwtToken } // Send token as a query parameter
+            });
             console.log('Bookings of this user:', response.data);
 
             // Fetch vehicle names for each booking
@@ -47,7 +49,10 @@ useEffect(() => {
 const fetchVehicleName = async (vehicleId) => {
     // Fetch vehicle details for each booking
     const vehicleResponse = await axios.get(`http://localhost:8081/api/vehicles/vehicle`, {
-        params: { id: vehicleId }
+        params: { 
+            vehicleId: vehicleId ,
+            token: jwtToken
+        }
     });
     console.log('Vehicle details:', vehicleResponse.data);
     return vehicleResponse.data.companyName + ' ' + vehicleResponse.data.model;
@@ -191,11 +196,18 @@ const fetchVehicleName = async (vehicleId) => {
                 <br/><br/>
                 <h1>My Bookings</h1>
                 <div className="booking-info">
-                    {bookings.map((booking) => (
-                        <div key={booking.id} className="booking-details">
-                            <h3>{booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}</h3>
-                        </div>
-                    ))}
+                    {bookings.length === 0 ? (
+                        <p>No bookings made yet.</p>
+                    ) : (
+                        bookings.map((booking) => (
+                            <div key={booking.id} className="booking-details">
+                                <h3>
+                                    {booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
+                                </h3>
+                            </div>
+                        ))
+                    )}
+
                 </div>
             </div>
         </div>
