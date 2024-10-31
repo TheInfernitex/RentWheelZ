@@ -6,7 +6,7 @@ RentWheelZ is a Car Rental Website made with Next.js and Springboot.
 Features : 
 - Dynamic Landing Page with sleek animations
 - Smooth User flow from Signup to login
-- Forgot Password functionality
+- Forgot Password functionality with a 24/7 email service
 - Profile Page with Dynamic Data Fetching and Updation
 - Delete Account with a single click
 - See available Vehicles
