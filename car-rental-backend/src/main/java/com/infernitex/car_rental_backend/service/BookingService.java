@@ -23,4 +23,20 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
+    public Booking getBookingById(Long bookingId) {
+        return bookingRepository.findById(bookingId).orElse(null);
+    }
+
+    public List<Booking> getBookingsByVehicleId(Long vehicleId) {
+        return bookingRepository.findByVehicleId(vehicleId);
+    }
+
+    public void deleteBooking(Long bookingId) {
+        bookingRepository.deleteById(bookingId);
+    }
+
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
+    }
+
 }

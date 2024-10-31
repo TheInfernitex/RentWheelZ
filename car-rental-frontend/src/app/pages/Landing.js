@@ -34,6 +34,8 @@ export default function Landing() {
 
     return (
       <div className="home-container">
+
+        
             <CursorFollower />
           <nav className="navbar">
               <h2 className="navbar-title">RentWheelZ</h2>
@@ -63,7 +65,6 @@ export default function Landing() {
                   )}
               </div>
           </nav>
-
             {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
             {isSignupOpen && <SignupModal onClose={() => setIsSignupOpen(false)}/>}
             {isProfileOpen && (

@@ -18,6 +18,44 @@ const ProfileModal = ({ onClose, className }) => {
 
     const { jwtToken, userId, logout } = useAuth(); // Getting jwtToken and logout from useAuth
 
+    const customerId = userId; 
+
+    const [bookings, setBookings] = useState([]);
+
+useEffect(() => {
+    const fetchBookings = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8081/api/bookings/customer/${customerId}`);
+            console.log('Bookings of this user:', response.data);
+
+            // Fetch vehicle names for each booking
+            const bookingsWithNames = await Promise.all(response.data.map(async (booking) => {
+                const vehicleName = await fetchVehicleName(booking.vehicleId); // Assuming booking has vehicleId
+                return { ...booking, vehicleName }; // Combine booking details with vehicle name
+            }));
+
+            setBookings(bookingsWithNames);
+
+        } catch (error) {
+            console.error("Error fetching bookings:", error);
+        }
+    };
+
+    fetchBookings();
+}, [customerId]);
+
+const fetchVehicleName = async (vehicleId) => {
+    // Fetch vehicle details for each booking
+    const vehicleResponse = await axios.get(`http://localhost:8081/api/vehicles/vehicle`, {
+        params: { id: vehicleId }
+    });
+    console.log('Vehicle details:', vehicleResponse.data);
+    return vehicleResponse.data.companyName + ' ' + vehicleResponse.data.model;
+};
+
+
+
+
     // Fetch user profile data on component mount
         const fetchUserProfile = async (userId, jwtToken) => {
             try {
@@ -150,6 +188,15 @@ const ProfileModal = ({ onClose, className }) => {
                         }} />
                     </div>
                 )}
+                <br/><br/>
+                <h1>My Bookings</h1>
+                <div className="booking-info">
+                    {bookings.map((booking) => (
+                        <div key={booking.id} className="booking-details">
+                            <h3>{booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}</h3>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

@@ -11,5 +11,6 @@ import com.infernitex.car_rental_backend.model.Booking;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     Booking findById(long id);
     List<Booking> findByCustomerId(Long customerId);
+    List<Booking> findByVehicleId(Long vehicleId);
 }
 

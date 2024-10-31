@@ -37,4 +37,9 @@ public class VehicleController {
         return null;
     }
 
+    @GetMapping("/vehicle")
+    public Vehicle getVehicle(@RequestParam Long id) {
+        return vehicleService.findById(id);
+    }
+
 }

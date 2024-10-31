@@ -204,3 +204,10 @@ form button {
 .prof-close-button:hover {
   color: #00ddff;
 }
+
+.booking-modal .modal-content{
+  height: 70vh;
+}
+.booking-modal .result-message{
+  width:100%;
+}
