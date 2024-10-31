@@ -1,4 +1,4 @@
-### RentWheelZ is a Car Rental Website made with Next.js and Springboot. 
+## RentWheelZ is a Car Rental Website made with Next.js and Springboot. 
 
 
 ### [Current Status: Milestone 3 Ongoing..]
