@@ -68,4 +68,4 @@ Then, open another terminal and run the following commands to start the backend 
 ```
 
 
-***Enjoy the app! 🚗***
+# Enjoy the app! 🚗
