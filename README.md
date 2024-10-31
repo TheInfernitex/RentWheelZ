@@ -22,6 +22,8 @@ Future updates:
 - Deployment and testing
 
 
+#Run it on your machine:
+
 
 Brevo is an email service whose API key can be generated [here](https://www.brevo.com/).
 
