@@ -8,7 +8,7 @@ import LoginModal from '@/components/LoginModal';
 import SignupModal from '@/components/SignupModal';
 import ProfileModal from "@/components/ProfileModal";
 import CursorFollower from '@/components/CursorFollower';
-import Vehicles from '../../components/Vehicles';
+import Vehicles from './Vehicles';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faCar } from '@fortawesome/free-solid-svg-icons';

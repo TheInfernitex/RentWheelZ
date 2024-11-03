@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/vehicles.css';
-import BookingModal from './BookingModal';
-import { useAuth } from '../app/AuthContext';
-import Button from './Button';
+import '../../styles/vehicles.css';
+import BookingModal from '../../components/BookingModal';
+import { useAuth } from '../AuthContext';
+import Button from '../../components/Button';
 
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([]);
@@ -17,6 +17,35 @@ const Vehicles = () => {
     const [vehicleId, setVehicleId] = useState(null);
     const [company, setCompany] = useState(null);
     const [model, setModel] = useState(null);
+
+    
+    const [expandReviewFor, setExpandReviewFor] = useState(-1);
+    const [reviews, setReviews] = useState([]);
+
+    const handleExpandReviews = async (vehicleId) => {
+        // Fetch reviews for the vehicle at https://localhost:8081/api/reviews/vehicle/:vehicleId
+        // add them to the reviews state
+        // set expandReviewFor to vehicleId after fetching reviews if it's -1
+        // set setExpandReviewFor to -1 if it already was not -1.
+        try {
+            if (expandReviewFor === vehicleId) {
+                // If already expanded, collapse it by setting expandReviewFor to -1
+                setExpandReviewFor(-1);
+                setReviews([]);
+            } else {
+                // Fetch reviews from the API
+                const response = await axios.get(`http://localhost:8081/api/reviews/vehicle/${vehicleId}`);
+                
+                // Update the reviews state with fetched data
+                setReviews(response.data);
+
+                // Set expandReviewFor to the vehicleId to expand the reviews
+                setExpandReviewFor(vehicleId);
+            }
+        } catch (error) {
+            console.error("Error fetching reviews:", error);
+        }
+    }
     
     const { jwtToken, userId } = useAuth();
 
@@ -117,6 +146,7 @@ const Vehicles = () => {
 
             <ul>
                 {filteredVehicles.map(vehicle => (
+                    <>
                     <li key={vehicle.id}>
                         <img src={vehicle.imageUrl} alt={vehicle.model} width="100" />
                         <div className='vehicleDetail'> 
@@ -129,7 +159,19 @@ const Vehicles = () => {
                             <p>Number Plate: {vehicle.numberPlate}</p>
                         </div>
                         <Button text="Book" onClick={()=>{handleBooking(vehicle.id, vehicle.companyName, vehicle.model)}} />
+                        <button onClick={()=>{handleExpandReviews(vehicle.id)}}>Expand Reviews</button>
                     </li>
+                    {expandReviewFor==vehicle.id? (
+                        <div className="reviews">
+                            {reviews.length>0 && reviews.map(review => (
+                                <div className='review'>
+                                    <p>Rating: {review.rating}</p>
+                                    <p>Comment: {review.comment}</p>
+                                </div>
+                            ))}
+                        </div>
+                    ):null}
+                    </>
                 ))}
             </ul>
         </div>

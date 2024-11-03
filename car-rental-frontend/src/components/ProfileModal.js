@@ -7,6 +7,7 @@ import InputField from './InputField';
 import Button from './Button';
 import { useAuth } from '../app/AuthContext';
 import axios from 'axios';
+import ReviewModal from './ReviewModal';
 
 const ProfileModal = ({ onClose, className }) => {
     const [firstName, setFirstName] = useState('');
@@ -21,6 +22,9 @@ const ProfileModal = ({ onClose, className }) => {
     const customerId = userId; 
 
     const [bookings, setBookings] = useState([]);
+
+    const [reviewOpen, setReviewOpen] = useState(false);
+    const [vehicleId, setVehicleId] = useState(null);
 
 useEffect(() => {
     const fetchBookings = async () => {
@@ -194,6 +198,10 @@ const fetchVehicleName = async (vehicleId) => {
                     </div>
                 )}
                 <br/><br/>
+
+                {reviewOpen && (<ReviewModal vehicleId={vehicleId} onClose={() => setReviewOpen(false)} userId={userId}/>)}
+
+                <br/><br/>
                 <h1>My Bookings</h1>
                 <div className="booking-info">
                     {bookings.length === 0 ? (
@@ -202,12 +210,11 @@ const fetchVehicleName = async (vehicleId) => {
                         bookings.map((booking) => (
                             <div key={booking.id} className="booking-details">
                                 <h3>
-                                    {booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
+                                    {booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString() } <Button text="Review" onClick={() => {setReviewOpen(true); setVehicleId(booking.vehicleId);} } />
                                 </h3>
                             </div>
                         ))
                     )}
-
                 </div>
             </div>
         </div>
