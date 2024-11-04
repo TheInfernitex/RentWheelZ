@@ -30,7 +30,6 @@ Brevo is an email service whose API key can be generated [here](https://www.brev
 
 To use the app, clone it to your local machine and enter your brevo API key in *application.properties*:
 ```properties
-    spring.application.name=car-rental-backend
 
     brevo.api.key=*ENTER_BREVO_API_KEY_HERE*
     
