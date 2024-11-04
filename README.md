@@ -18,7 +18,6 @@
 - Add reviews for your bookings
 
 ### Future updates:
-- Feedbacks and Ratings
 - Admin dashboard for adding vehicles and analytics
 - Payment System
 - Deployment and testing
