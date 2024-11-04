@@ -1,5 +1,5 @@
 
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 // Create context
@@ -10,16 +10,41 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null)
   const [jwtToken, setJwtToken] = useState(null); 
+
+  useEffect(() => {
+    // Retrieve stored values from localStorage on component mount
+    const storedToken = localStorage.getItem('jwtToken');
+    const storedUserId = localStorage.getItem('userId');
+    
+    if (storedToken && storedUserId) {
+      setIsLoggedIn(true);
+      setUserId(storedUserId);
+      setJwtToken(storedToken);
+    }
+  }, []);
+
   const login = (token, id) => {
     setIsLoggedIn(true);
     setUserId(id)
     setJwtToken(token); 
+
+
+    // Save to localStorage
+    localStorage.setItem('jwtToken', token);
+    localStorage.setItem('userId', id);
   };
 
   const logout = () => {
     setIsLoggedIn(false);
     setUserId(null);
     setJwtToken(null); 
+
+
+
+    // Remove from localStorage
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userId');
+
     console.log('Logged out');
     loggedOut();
   };

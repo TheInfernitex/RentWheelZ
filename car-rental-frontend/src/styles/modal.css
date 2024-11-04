@@ -126,6 +126,17 @@ form button {
   
 }
 
+
+
+
+/* 
+
+PROFILE MODAL CSS 
+
+*/
+
+
+
 .profmodal {
   position: fixed;
   top: 0;
@@ -149,9 +160,6 @@ form button {
 .profmodal.slide-out {
   transform: translateX(100%); /* Slide out to the right */
 }
-
-
-
 
 .profmodal h2 {
   margin-top: 10vh;
@@ -183,7 +191,6 @@ form button {
   background-color: rgba(116, 209, 255, 0.376);
   border-radius: 30px;
   height: 50vh;
-  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -211,3 +218,98 @@ form button {
 .booking-modal .result-message{
   width:100%;
 }
+.booking-details{
+  background-color: rgba(255, 255, 255, 0.509);
+  color:#0091de;
+  border-radius: 20px;
+  height: 6vh;
+  margin: 2vh 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.reviewBtn{
+  background-color: #005b86d8;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-left: 2vh;
+}
+.reviewBtn:hover {
+  background-color: #00bbff;
+  transform: scale(1.1);
+}
+
+.reviewBtn:active {
+  transform: scale(1);
+}
+
+.booking-info {
+  max-height: 20vh; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  padding: 10px; /* Optional: add padding for better spacing */
+  border: 1px solid #ccc; /* Optional: add a border for styling */
+  border-radius: 10px;
+}
+.booking-info::-webkit-scrollbar-track {
+  background: #005b86d8; /* Background color of the scrollbar track */
+  border-radius: 10px;
+}
+.booking-info::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.509); /* Color of the scrollbar thumb */
+  border-radius: 10px;
+}
+/* For Firefox */
+.booking-info {
+  scrollbar-color: rgba(255, 255, 255, 0.509) #005b86d8;
+}
+
+
+
+
+/* 
+
+REVIEW MODAL CSS 
+
+*/
+
+.review-modal h1{
+  margin-bottom: 2vh;
+  margin-top: 4vh;
+  color:white;
+}
+
+.review-modal form{
+  width: 90%;
+  background: #0090de00;
+}
+
+.review-modal form label{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.review-modal input[type="number"] {
+  width: 10vw; /* Set width for number input */
+  padding: 20px; /* Add padding for spacing */
+  max-height: 40px;
+}
+
+.review-modal textarea {
+  width: 60%; /* Set width for other input fields */
+  padding: 5px; /* Add padding for spacing */
+  background-color: rgb(21 49 73);
+  color: white;
+  border-radius: 20px;
+  text-align: center;
+  max-height: 40px;
+  border:0;
+}
+

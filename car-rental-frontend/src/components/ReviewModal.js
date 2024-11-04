@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import Button from './Button';
+import '../styles/modal.css';
 
 const ReviewModal = ({ onClose, userId, vehicleId }) => {
     const [rating, setRating] = useState(1);
     const [comment, setComment] = useState('');
+    const [resultMessage, setResultMessage] = useState('');
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -27,14 +30,23 @@ const ReviewModal = ({ onClose, userId, vehicleId }) => {
             });
 
             if (response.ok) {
-                alert('Review submitted successfully!');
-                onClose(); // Close the modal
+                setResultMessage('Review submitted successfully!');
+                setTimeout(() => {
+                    setResultMessage('');
+                    onClose(); // Close the moda1
+                }, 1000);
             } else {
-                alert('Failed to submit review');
+                setResultMessage('Failed to submit review');
+                setTimeout(() => {
+                    setResultMessage('');
+                }, 1000);
             }
         } catch (error) {
+            setResultMessage('Failed to submit review');
+            setTimeout(() => {
+                setResultMessage('');
+            }, 1000);
             console.error('Error submitting review:', error);
-            alert('An error occurred while submitting your review');
         }
 
         setTimeout(() => {
@@ -43,15 +55,15 @@ const ReviewModal = ({ onClose, userId, vehicleId }) => {
     };
 
     return (
-        <div className="modal">
+        <div className="review-modal modal">
             <div className="modal-content">
                 <button className="close-button" onClick={onClose}>
                     &times;
                 </button>
-                <h2>Leave a Review</h2>
+                <h1>Leave a Review</h1>
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Rating (1-5):
+                        Add Rating (1-5) :
                         <input
                             type="number"
                             min="1"
@@ -62,67 +74,17 @@ const ReviewModal = ({ onClose, userId, vehicleId }) => {
                         />
                     </label>
                     <label>
-                        Comment:
+                        Add a Comment :
                         <textarea
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
                             required
                         />
                     </label>
-                    <button type="submit">Submit</button>
+                    {resultMessage? <p>{resultMessage}</p> : null}
+                    <Button text="Submit"/>
                 </form>
             </div>
-
-            <style jsx>{`
-                .modal {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: rgba(0, 0, 0, 0.5);
-                }
-                .modal-content {
-                    background: #fff;
-                    padding: 20px;
-                    border-radius: 8px;
-                    width: 400px;
-                    position: relative;
-                }
-                .close-button {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    background: transparent;
-                    border: none;
-                    font-size: 24px;
-                    cursor: pointer;
-                }
-                form {
-                    display: flex;
-                    flex-direction: column;
-                }
-                label {
-                    margin-bottom: 10px;
-                }
-                input[type='number'],
-                textarea {
-                    width: 100%;
-                    padding: 8px;
-                    margin-top: 4px;
-                }
-                button {
-                    padding: 10px;
-                    background: #0070f3;
-                    color: #fff;
-                    border: none;
-                    cursor: pointer;
-                    border-radius: 4px;
-                }
-            `}</style>
         </div>
     );
 };

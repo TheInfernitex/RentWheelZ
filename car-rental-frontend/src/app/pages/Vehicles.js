@@ -22,6 +22,22 @@ const Vehicles = () => {
     const [expandReviewFor, setExpandReviewFor] = useState(-1);
     const [reviews, setReviews] = useState([]);
 
+    const ratingCalculator = (vehicleId) => {
+        return vehicleId;
+    }
+
+    const fetchReviews = async (vehicleId) => {
+        try{
+            const response = await axios.get(`http://localhost:8081/api/reviews/vehicle/${vehicleId}`);
+            setReviews(response.data);
+        }
+        catch (error) { 
+            console.error("Error fetching reviews:", error);
+        }
+    }
+
+
+
     const handleExpandReviews = async (vehicleId) => {
         // Fetch reviews for the vehicle at https://localhost:8081/api/reviews/vehicle/:vehicleId
         // add them to the reviews state
@@ -34,10 +50,11 @@ const Vehicles = () => {
                 setReviews([]);
             } else {
                 // Fetch reviews from the API
-                const response = await axios.get(`http://localhost:8081/api/reviews/vehicle/${vehicleId}`);
+                // const response = await axios.get(`http://localhost:8081/api/reviews/vehicle/${vehicleId}`);
                 
-                // Update the reviews state with fetched data
-                setReviews(response.data);
+                // // Update the reviews state with fetched data
+                // setReviews(response.data);
+                fetchReviews(vehicleId);
 
                 // Set expandReviewFor to the vehicleId to expand the reviews
                 setExpandReviewFor(vehicleId);
@@ -80,6 +97,8 @@ const Vehicles = () => {
         setSearchTerm(e.target.value);
     };
 
+
+
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilters((prevFilters) => ({
@@ -89,8 +108,11 @@ const Vehicles = () => {
     };
 
     const filteredVehicles = vehicles.filter(vehicle => {
+        const searchMatch = vehicle.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        vehicle.model.toLowerCase().includes(searchTerm.toLowerCase());
+
         return (
-            vehicle.companyName.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            searchMatch &&
             (filters.type ? vehicle.type === filters.type : true) &&
             (filters.capacity ? vehicle.capacity === parseInt(filters.capacity) : true) &&
             (filters.price ? vehicle.pricePerDay <= parseInt(filters.price) : true)
@@ -113,7 +135,7 @@ const Vehicles = () => {
             <div className="filterVehicle">
                 <input
                     type="text"
-                    placeholder="Search by company name"
+                    placeholder="Search by company or model name"
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
@@ -147,24 +169,31 @@ const Vehicles = () => {
             <ul>
                 {filteredVehicles.map(vehicle => (
                     <>
-                    <li key={vehicle.id}>
+
+                    <li key={vehicle.id} className="vehicleItem">
+                        <div className="vehicleLeft">
                         <img src={vehicle.imageUrl} alt={vehicle.model} width="100" />
-                        <div className='vehicleDetail'> 
-                            <h2>{vehicle.companyName} {vehicle.model}</h2>
+                        <h2>{vehicle.companyName} {vehicle.model}</h2>
+                        </div>
+                        <div className="vehicleRight">
+                        <div className="vehicleDetail"> 
                             <p>Type: {vehicle.type}</p>
                             <p>Capacity: {vehicle.capacity}</p>
                             <p>Price per Day: ${vehicle.pricePerDay}</p>
                             <p>Manufacturing Year: {vehicle.manufacturingYear}</p>
-                            <p>Rating: {vehicle.rating}</p>
+                            {/* <p>Rating: {ratingCalculator(vehicle.id)}</p> */}
                             <p>Number Plate: {vehicle.numberPlate}</p>
                         </div>
-                        <Button text="Book" onClick={()=>{handleBooking(vehicle.id, vehicle.companyName, vehicle.model)}} />
-                        <button onClick={()=>{handleExpandReviews(vehicle.id)}}>Expand Reviews</button>
+                        <div className="buttonContainer">
+                            <button className="vehicleBtn" onClick={() => handleBooking(vehicle.id, vehicle.companyName, vehicle.model)}>Book</button>
+                            <button className="vehicleBtn" onClick={() => handleExpandReviews(vehicle.id)}>Show/Hide Reviews</button>
+                        </div>
+                        </div>
                     </li>
                     {expandReviewFor==vehicle.id? (
                         <div className="reviews">
                             {reviews.length>0 && reviews.map(review => (
-                                <div className='review'>
+                                <div key={review.id} className='review'>
                                     <p>Rating: {review.rating}</p>
                                     <p>Comment: {review.comment}</p>
                                 </div>

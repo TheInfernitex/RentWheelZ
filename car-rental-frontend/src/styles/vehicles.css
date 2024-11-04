@@ -64,6 +64,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 40vh;
     
     background: linear-gradient(45deg, #000000d9, #367cb8, #000000de);
 }
@@ -72,14 +73,17 @@
 
 .vehicleDetail{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 70%;
+    width: 100%;
 }
 
 .vehicleContainer li img {
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin: 10px;
+    height: 30vh;
+    width: 30vh;
 }
 
 
@@ -124,7 +128,7 @@
     margin: 5px;
     font-size: 1rem;
     color: #C5C6C7;
-    width: 15%;
+    width: 100%;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -153,11 +157,10 @@
     
     background: linear-gradient(45deg, #003278d9, #0f2334, #003278d9);
 }
-ul li:last-child{
-    height: 10%;
-    width: 10%;
-    background-color: rgba(21, 49, 73, 0.671);
-    color: white;
+
+.vehicleBtn {
+    background-color: rgba(31, 150, 255, 0.671);
+    color: white; 
     font-weight: bold;
     padding: 10px 20px;
     border: none;
@@ -165,4 +168,31 @@ ul li:last-child{
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    margin: 10px;
 }
+
+.vehicleBtn:hover {
+    background-color: #00bbff;
+    transform: scale(1.1);
+}
+
+  .vehicleLeft {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    margin-right: 20px;
+  }
+  
+  .vehicleLeft h2 {
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 8px;
+  }
+  
+  .vehicleRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+  }
