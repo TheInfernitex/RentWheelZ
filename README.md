@@ -32,20 +32,8 @@ To use the app, clone it to your local machine and enter your brevo API key in *
 ```properties
     spring.application.name=car-rental-backend
 
-
-    # H2 Database Configuration
-    spring.h2.console.enabled=true
-    spring.datasource.url=jdbc:h2:file:./data/auctionbazar;
-    spring.datasource.driverClassName=org.h2.Driver
-    spring.datasource.username=sa
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.show-sql=true
-    server.port=8081
-    
     brevo.api.key=*ENTER_BREVO_API_KEY_HERE*
     
-    spring.security.user.name=user
-    spring.security.user.password=12345678
 ```
 
 
@@ -63,8 +51,8 @@ Then, open another terminal and run the following commands to start the backend 
 
 ```bash
     cd car-rental-backend
-    ./mvnw clean install
-    ./mvnw spring-boot:run
+    mvn clean install
+    mvn spring-boot:run
 
 ```
 
