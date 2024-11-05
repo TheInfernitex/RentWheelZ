@@ -18,6 +18,7 @@ const ForgotPassModal = ({ onClose }) => {
             const response = await axios.post('http://localhost:8081/api/users/forgotpass', {
                 email,
             });
+            console.log('Response:', response.data);
             setResult('Token sent to your email!');
             setTimeout(() => {
                 setShowResetModal(true);

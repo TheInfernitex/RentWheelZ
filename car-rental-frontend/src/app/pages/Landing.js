@@ -70,6 +70,7 @@ export default function Landing() {
             {isProfileOpen && (
                 <ProfileModal
                 onClose={closeProfileModal}
+                setIsVehiclesOpen={setIsVehiclesOpen}
                 className={`profmodal ${isProfileOpen ? 'active' : ''} ${isSlideOut ? 'slide-out' : ''}`}
                 />
             )}

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infernitex.car_rental_backend.model.Booking;
+import com.infernitex.car_rental_backend.model.User;
+import com.infernitex.car_rental_backend.model.Vehicle;
 import com.infernitex.car_rental_backend.service.BookingService;
+import com.infernitex.car_rental_backend.service.EmailService;
 import com.infernitex.car_rental_backend.service.UserService;
+import com.infernitex.car_rental_backend.service.VehicleService;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -28,6 +33,12 @@ public class BookingController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private VehicleService vehicleService;
 
     @GetMapping("hello")
     public String hello() {
@@ -45,9 +56,31 @@ public class BookingController {
     @PostMapping("/create")
     public Booking createBooking(@RequestBody Booking booking, @RequestParam String token) {
         if (userService.validateJwtToken(token)) {
+            // Send booking confirmation email
+            User user = userService.fetchUserById(booking.getCustomerId());
+            Vehicle vehicle = vehicleService.findById(booking.getVehicleId());
+
+            String emailContent = String.format("Your booking for %s %s has been confirmed. The rental period is from %s to %s.",
+                    vehicle.getCompanyName(), vehicle.getModel(), booking.getStartDate(), booking.getEndDate());
+            emailService.sendBookingConfirmationEmail(user.getEmail(), emailContent);
             return bookingService.createBooking(booking);
         }
         return null;
+    }
+
+    @DeleteMapping("/delete/{bookingId}")
+    public void deleteBooking(@PathVariable Long bookingId, @RequestParam String token) {
+        if (userService.validateJwtToken(token)) {
+            // Send booking cancellation email
+            Booking booking = bookingService.getBookingById(bookingId);
+            User user = userService.fetchUserById(booking.getCustomerId());
+            Vehicle vehicle = vehicleService.findById(booking.getVehicleId());
+            String emailContent = String.format("Your booking for %s %s from %s to %s has been cancelled.",
+                    vehicle.getCompanyName(), vehicle.getModel(), booking.getStartDate(), booking.getEndDate());
+
+            emailService.sendBookingCancellationEmail(user.getEmail(), emailContent);
+            bookingService.deleteBooking(bookingId);
+        }
     }
 
     @GetMapping("/unavailable-dates/{vehicleId}")

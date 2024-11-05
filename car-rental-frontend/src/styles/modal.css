@@ -222,7 +222,7 @@ PROFILE MODAL CSS
   background-color: rgba(255, 255, 255, 0.509);
   color:#0091de;
   border-radius: 20px;
-  height: 6vh;
+  height: 8vh;
   margin: 2vh 0;
   display: flex;
   justify-content: space-around;
@@ -244,9 +244,21 @@ PROFILE MODAL CSS
   background-color: #00bbff;
   transform: scale(1.1);
 }
-
-.reviewBtn:active {
-  transform: scale(1);
+.cancelBookingBtn{
+  background-color: #005b86d8;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-left: 2vh;
+}
+.cancelBookingBtn:hover {
+  background-color: #00bbff;
+  transform: scale(1.1);
 }
 
 .booking-info {

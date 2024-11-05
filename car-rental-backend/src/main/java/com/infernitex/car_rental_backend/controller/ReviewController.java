@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.infernitex.car_rental_backend.model.Review;
 import com.infernitex.car_rental_backend.service.ReviewService;
+import com.infernitex.car_rental_backend.service.VehicleService;
 
 @RestController
 @RequestMapping("/api/reviews")
@@ -25,6 +26,9 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private VehicleService vehicleService;
 
     @GetMapping
     public List<Review> getAllReviews() {
@@ -41,6 +45,16 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity<Review> saveOrUpdateReview(@RequestBody Review review) {
         Review createdReview = reviewService.saveOrUpdateReview(review);
+
+        List<Review> reviews = reviewService.getReviewsByVehicleId(review.getVehicleId());
+        double totalRating = 0;
+        for (Review r : reviews) {
+            totalRating += r.getRating();
+        }
+        double averageRating = totalRating / reviews.size();
+        vehicleService.updateVehicleRating(review.getVehicleId(), averageRating);
+
+
         return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
     }
 

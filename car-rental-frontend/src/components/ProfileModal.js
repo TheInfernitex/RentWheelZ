@@ -9,7 +9,7 @@ import { useAuth } from '../app/AuthContext';
 import axios from 'axios';
 import ReviewModal from './ReviewModal';
 
-const ProfileModal = ({ onClose, className }) => {
+const ProfileModal = ({ onClose, className, setIsVehiclesOpen }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [address, setAddress] = useState('');
@@ -133,6 +133,21 @@ const fetchVehicleName = async (vehicleId) => {
         }
     };
 
+    const handleBookingCancellation = async (bookingId) => {
+        try {
+            await axios.delete(`http://localhost:8081/api/bookings/delete/${bookingId}`, {
+                params: {
+                    token: jwtToken // Send token as a query parameter
+                }
+            });
+            console.log('Booking cancelled:', bookingId);
+            const updatedBookings = bookings.filter((booking) => booking.id !== bookingId);
+            setBookings(updatedBookings);
+        } catch (error) {
+            console.error('Error cancelling booking:', error);
+        }
+    }
+
 
     return (
         <div className={`profmodal profile-modal ${className}`}>
@@ -192,6 +207,7 @@ const fetchVehicleName = async (vehicleId) => {
                         <Button text="Delete Account" onClick={handleDeleteAccount} />
                         <Button text="Logout" onClick={() => {
                             console.log('clicked Log out button');
+                            setIsVehiclesOpen(false); // Close the vehicles page
                             logout(); // Trigger logout from AuthContext
                             onClose();
                         }} />
@@ -211,6 +227,7 @@ const fetchVehicleName = async (vehicleId) => {
                             <div key={booking.id} className="booking-details">
                                 <h3>
                                     {booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString() } <button className="reviewBtn" onClick={() => {setReviewOpen(true); setVehicleId(booking.vehicleId);} } >Review</button>
+                                    <button className="cancelBookingBtn" onClick={() => {handleBookingCancellation(booking.id)} } >Cancel</button>
                                 </h3>
                             </div>
                         ))

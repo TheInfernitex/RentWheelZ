@@ -181,7 +181,7 @@ const Vehicles = () => {
                             <p>Capacity: {vehicle.capacity}</p>
                             <p>Price per Day: ${vehicle.pricePerDay}</p>
                             <p>Manufacturing Year: {vehicle.manufacturingYear}</p>
-                            {/* <p>Rating: {ratingCalculator(vehicle.id)}</p> */}
+                            <p>Rating: {vehicle.rating}</p>
                             <p>Number Plate: {vehicle.numberPlate}</p>
                         </div>
                         <div className="buttonContainer">

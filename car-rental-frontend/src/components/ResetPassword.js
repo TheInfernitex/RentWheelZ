@@ -34,6 +34,7 @@ const ResetPassword = ({ onClose, closeForgot }) => {
                 resetToken,
                 newPassword,
             });
+            console.log('Response:', response.data);
             setResult('Password has been reset successfully!');
             setTimeout(() => {
                 closeForgot();

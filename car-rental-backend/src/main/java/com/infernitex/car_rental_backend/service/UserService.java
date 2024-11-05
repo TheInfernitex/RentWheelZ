@@ -1,4 +1,3 @@
-
 package com.infernitex.car_rental_backend.service;
 
 import java.nio.charset.StandardCharsets;
@@ -120,9 +119,9 @@ public class UserService {
     public boolean validateJwtToken(String token) {
         try {
             Jwts.parserBuilder() // Use parserBuilder for newer versions of JJWT
-                .setSigningKey(jwtSecret) // Set the signing key used in token generation
-                .build() // Build the parser with the signing key
-                .parseClaimsJws(token); // Parse the token to check its validity
+                    .setSigningKey(jwtSecret) // Set the signing key used in token generation
+                    .build() // Build the parser with the signing key
+                    .parseClaimsJws(token); // Parse the token to check its validity
             return true; // Token is valid
         } catch (SignatureException e) {
             System.out.println("Invalid JWT signature: " + e.getMessage());
@@ -137,7 +136,6 @@ public class UserService {
         }
         return false; // Token is invalid
     }
-
 
     // Extract claims from the token
     public Claims getClaimsFromToken(String token) {

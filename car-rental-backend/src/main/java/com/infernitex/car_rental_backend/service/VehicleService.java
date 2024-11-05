@@ -21,4 +21,10 @@ public class VehicleService {
     public List<Vehicle> findAll() {
         return vehicleRepository.findAll();
     }
+
+    public void updateVehicleRating(long vehicleId, double rating) {
+        Vehicle vehicle = vehicleRepository.findById(vehicleId);
+        vehicle.setRating(rating);
+        vehicleRepository.save(vehicle);
+    }
 }
