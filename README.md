@@ -15,11 +15,13 @@
 - Seamlessly View the bookings in profile page
 - jwt validation for all sensitive apis
 - View other user's reviews and ratings 
-- Add reviews for your bookings
+- Add reviews on your bookings
+- Cancel Bookings
+- Booking/Cancellation confirmation through email
 
 ### Future updates:
 - Admin dashboard for adding vehicles and analytics
-- Payment System
+- Payment Gateway Integration
 - Deployment and testing
 
 
