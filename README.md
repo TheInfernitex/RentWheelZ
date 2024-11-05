@@ -13,11 +13,11 @@
 - Searching and Filtering
 - Book a vehicle using Dynamic Calendar without worry of overlaps
 - Seamlessly View the bookings in profile page
-- jwt validation for all sensitive apis
 - View other user's reviews and ratings 
 - Add reviews on your bookings
 - Cancel Bookings
 - Booking/Cancellation confirmation through email
+- jwt validation for all sensitive apis
 
 ### Future updates:
 - Admin dashboard for adding vehicles and analytics
