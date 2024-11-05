@@ -47,7 +47,7 @@ const ForgotPassModal = ({ onClose }) => {
                     </form>
                 </div>
             </div>
-            {showResetModal && <ResetPassword onClose={() => setShowResetModal(false)} closeForgot={onClose}/>} {/* Show Reset Password modal */}
+            {showResetModal && <ResetPassword onClose={() => {setShowResetModal(false);onClose();}} closeForgot={onClose}/>} {/* Show Reset Password modal */}
         </>
     );
 };

@@ -6,6 +6,8 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,8 @@ public class UserService {
     private final String secret = "your secret key is this i hope this is long enough for you, you silly little goose"; // Update with your actual secret key
     String jwtSecret = Base64.getEncoder().encodeToString(secret.getBytes(StandardCharsets.UTF_8));
     private final long jwtExpiration = 604800000; // 1 week in milliseconds
+
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -72,10 +76,10 @@ public class UserService {
     public User updateUser(Long id, User updatedUser) {
         User existingUser = fetchUserById(id);
         if (existingUser != null) {
-            existingUser.setFirstName(updatedUser.getFirstName());
-            existingUser.setLastName(updatedUser.getLastName());
-            existingUser.setAddress(updatedUser.getAddress());
-            existingUser.setPhoneNo(updatedUser.getPhoneNo());
+            if(!updatedUser.getFirstName().equals(""))existingUser.setFirstName(updatedUser.getFirstName());
+            if(!updatedUser.getFirstName().equals(""))existingUser.setLastName(updatedUser.getLastName());
+            if(!updatedUser.getFirstName().equals(""))existingUser.setAddress(updatedUser.getAddress());
+            if(!updatedUser.getFirstName().equals(""))existingUser.setPhoneNo(updatedUser.getPhoneNo());
             return userRepository.save(existingUser); // Save updated user
         }
         return null; // User not found
@@ -92,15 +96,21 @@ public class UserService {
     public String generateResetToken(String email) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            return null; // User not found
+            return null;
         }
+        logger.info("User found: {}", user.getFirstName());
 
         String resetToken = UUID.randomUUID().toString();
+
         user.setResetToken(resetToken);
         user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(3)); // Set expiry time (3 minutes from now)
-        userRepository.save(user); // Save the user with the reset token
 
-        return resetToken; // Return the reset token (for testing purposes)
+        logger.info("Updating user with reset token and expiry: {}", user.getFirstName());
+        userRepository.save(user);
+
+        logger.info("User successfully saved with updated reset token and expiry: {}", user.getFirstName());
+
+        return resetToken;
     }
 
     public boolean resetPassword(String resetToken, String newPassword) {

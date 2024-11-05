@@ -226,9 +226,12 @@ const fetchVehicleName = async (vehicleId) => {
                         bookings.map((booking) => (
                             <div key={booking.id} className="booking-details">
                                 <h3>
-                                    {booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString() } <button className="reviewBtn" onClick={() => {setReviewOpen(true); setVehicleId(booking.vehicleId);} } >Review</button>
-                                    <button className="cancelBookingBtn" onClick={() => {handleBookingCancellation(booking.id)} } >Cancel</button>
+                                    {booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString() } 
                                 </h3>
+                                <div className="booking-buttons">
+                                    <button className="reviewBtn" onClick={() => {setReviewOpen(true); setVehicleId(booking.vehicleId);} } >Review</button>
+                                    <button className="cancelBookingBtn" onClick={() => {handleBookingCancellation(booking.id)} } >Cancel</button>
+                                </div>
                             </div>
                         ))
                     )}

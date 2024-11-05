@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BookingCalendar from './BookingCalendar';
@@ -11,8 +10,9 @@ const BookingModal = ({ onClose, userId, vehicleId, company, model }) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const { jwtToken } = useAuth();
-    
     const [disabledDates, setDisabledDates] = useState([]);
+    const [showPaymentOptions, setShowPaymentOptions] = useState(false); // New state to toggle payment options
+
     useEffect(() => {
         const fetchDisabledDates = async () => {
             try {
@@ -32,14 +32,19 @@ const BookingModal = ({ onClose, userId, vehicleId, company, model }) => {
         setEndDate(endDate);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleProceedToPayment = () => {
         if (!startDate || !endDate) {
             setResult('Click on start date, click on end date, Book!');
             return;
         }
-        setResult('Booking...');
+        
+        setResult('Click on the preferred payment option and confirm!');
+        setShowPaymentOptions(true); // Show payment options
+    };
 
+    const handleConfirmBooking = async () => {
+        setResult('Booking...');
+        
         const booking = {
             customerId: userId,
             vehicleId,
@@ -64,21 +69,38 @@ const BookingModal = ({ onClose, userId, vehicleId, company, model }) => {
             }, 3000);
         }
     };
-
     return (
         <div className="modal booking-modal">
             <div className="modal-content">
                 <button className="close-button" onClick={onClose}>×</button>
                 <h1>Book a {company} {model}</h1>
-                <form onSubmit={handleSubmit}>
-                    <BookingCalendar disabledDates={disabledDates} onSelectDates={handleSelectDates} />
+                
+                {/* Show calendar only if payment options are not visible */}
+                {!showPaymentOptions && (
+                   <>
+                   <BookingCalendar disabledDates={disabledDates} onSelectDates={handleSelectDates} />
                     {result && <p className="result-message">{result}</p>}
-                    <Button text="Book" />
-                </form>
+                    <Button text="Proceed to Payment" onClick={handleProceedToPayment} />
+                   </>
+                )}
+                
+                {/* Payment options and confirm button */}
+                {showPaymentOptions && (
+                    <div className = "payment-window">
+                        <h2>Select Payment Method</h2>
+                        <div className="payment-options">
+                            <label><input type="radio" name="payment" /> UPI</label>
+                            <label><input type="radio" name="payment" /> Debit Card</label>
+                            <label><input type="radio" name="payment" /> Credit Card</label>
+                            <label><input type="radio" name="payment" /> Net Banking</label>
+                        </div>
+                        {result && <p className="result-message">{result}</p>}
+                        <Button text="Confirm Booking" onClick={handleConfirmBooking} />
+                    </div>
+                )}
             </div>
         </div>
     );
 };
 
 export default BookingModal;
-

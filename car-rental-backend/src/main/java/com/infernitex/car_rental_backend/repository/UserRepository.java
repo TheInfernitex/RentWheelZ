@@ -12,9 +12,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
     User findByResetToken(String resetToken);
     User findById(long id);
-
-
-    // @Modifying
-    // @Query("UPDATE User u SET u.resetToken = :resetToken, u.resetTokenExpiry = :expiry WHERE u.email = :email")
-    // void updateResetTokenByEmail(@Param("email") String email, @Param("resetToken") String resetToken, @Param("expiry") LocalDateTime expiry);
 }
