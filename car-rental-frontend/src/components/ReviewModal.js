@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import Button from './Button';
+import { useAuth } from '../app/AuthContext'
 import '../styles/modal.css';
+import axios from 'axios';
 
 const ReviewModal = ({ onClose, userId, vehicleId }) => {
     const [rating, setRating] = useState(1);
     const [comment, setComment] = useState('');
     const [resultMessage, setResultMessage] = useState('');
+
+    const {jwtToken} = useAuth();
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -20,16 +24,16 @@ const ReviewModal = ({ onClose, userId, vehicleId }) => {
         };
 
         try {
-            // Send the review to the backend
-            const response = await fetch('http://localhost:8081/api/reviews', {
-                method: 'POST',
+            const response = await axios.post('http://localhost:8081/api/reviews', review, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(review),
+                params: {
+                    token: jwtToken,
+                }
             });
 
-            if (response.ok) {
+            if (response) {
                 setResultMessage('Review submitted successfully!');
                 setTimeout(() => {
                     setResultMessage('');

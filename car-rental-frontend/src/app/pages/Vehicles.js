@@ -28,7 +28,11 @@ const Vehicles = () => {
 
     const fetchReviews = async (vehicleId) => {
         try{
-            const response = await axios.get(`http://localhost:8081/api/reviews/vehicle/${vehicleId}`);
+            const response = await axios.get(`http://localhost:8081/api/reviews/vehicle/${vehicleId}`, {
+                params: {
+                    token: jwtToken,
+                }
+            });
             setReviews(response.data);
         }
         catch (error) { 
@@ -49,13 +53,7 @@ const Vehicles = () => {
                 setExpandReviewFor(-1);
                 setReviews([]);
             } else {
-                // Fetch reviews from the API
-                // const response = await axios.get(`http://localhost:8081/api/reviews/vehicle/${vehicleId}`);
-                
-                // // Update the reviews state with fetched data
-                // setReviews(response.data);
                 fetchReviews(vehicleId);
-
                 // Set expandReviewFor to the vehicleId to expand the reviews
                 setExpandReviewFor(vehicleId);
             }
