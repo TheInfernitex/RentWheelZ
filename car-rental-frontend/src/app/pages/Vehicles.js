@@ -3,7 +3,6 @@ import axios from 'axios';
 import '../../styles/vehicles.css';
 import BookingModal from '../../components/BookingModal';
 import { useAuth } from '../AuthContext';
-import Button from '../../components/Button';
 
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([]);
@@ -21,10 +20,6 @@ const Vehicles = () => {
     
     const [expandReviewFor, setExpandReviewFor] = useState(-1);
     const [reviews, setReviews] = useState([]);
-
-    const ratingCalculator = (vehicleId) => {
-        return vehicleId;
-    }
 
     const fetchReviews = async (vehicleId) => {
         try{

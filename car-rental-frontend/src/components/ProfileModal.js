@@ -26,6 +26,9 @@ const ProfileModal = ({ onClose, className, setIsVehiclesOpen }) => {
     const [reviewOpen, setReviewOpen] = useState(false);
     const [vehicleId, setVehicleId] = useState(null);
 
+
+    const today = new Date().toLocaleDateString();
+
 useEffect(() => {
     const fetchBookings = async () => {
         try {
@@ -229,7 +232,10 @@ const fetchVehicleName = async (vehicleId) => {
                                     {booking.vehicleName}: {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString() } 
                                 </h3>
                                 <div className="booking-buttons">
-                                    <button className="reviewBtn" onClick={() => {setReviewOpen(true); setVehicleId(booking.vehicleId);} } >Review</button>
+                                    
+                                {today === new Date(booking.endDate).toLocaleDateString() &&
+                                    <button className="reviewBtn" onClick={() => {setReviewOpen(true); setVehicleId(booking.vehicleId);} } >Review</button>}
+                                    
                                     <button className="cancelBookingBtn" onClick={() => {handleBookingCancellation(booking.id)} } >Cancel</button>
                                 </div>
                             </div>
